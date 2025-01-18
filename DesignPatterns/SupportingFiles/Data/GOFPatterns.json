@@ -1,0 +1,587 @@
+[
+    {
+        "name": "Abstract Factory",
+        "category": "Creational",
+        "shortDescription": "Provides an interface for creating families of related or dependent objects without specifying their concrete classes.",
+        "intent": "Encapsulates a group of individual factories that have a common theme to create families of related objects.",
+        "applicability": "Use when a system should be independent of how its products are created, composed, or represented. Applicable when you need to enforce families of related objects together, such as when different UI components for iOS and Android need to be created independently but follow the same interface.",
+        "structure": "Defines interfaces for each product family and concrete implementations to ensure interchangeability. Involves abstract and concrete factories.",
+        "participants": [
+            "AbstractFactory: Declares an interface for operations that create abstract product objects.",
+            "ConcreteFactory: Implements the operations to create concrete product objects.",
+            "AbstractProduct: Declares an interface for a type of product.",
+            "ConcreteProduct: Defines a product object to be created by a corresponding ConcreteFactory."
+        ],
+        "collaborations": "The client interacts with the AbstractFactory to create products, allowing the client to use the same interface for different families of products. The concrete factory will then provide the necessary implementation to create a specific product.",
+        "consequences": "Facilitates exchangeability of product families and enforces the use of related products. However, adding new product families requires changes to the factory interface, impacting all subclasses.",
+        "implementation": "Define an abstract factory interface with creation methods for each product. Implement concrete factories for specific product families and ensure consistency in the UI elements or components being created across platforms.",
+        "knownUses": [
+            "Cross-platform mobile development frameworks like **Flutter** or **React Native** use Abstract Factory to ensure that platform-specific widgets (e.g., buttons, text fields) adhere to the same interface but have different implementations for iOS and Android.",
+            "In apps that have **custom UI themes** for different platforms (iOS vs. Android), Abstract Factory can be used to create platform-specific UI elements (e.g., navigation bars, buttons) while maintaining consistent behavior.",
+            "UI toolkits where you have **different design patterns** for iOS (e.g., UIKit or SwiftUI) and Android (e.g., Material Design) may use Abstract Factory to ensure consistency in interface elements for both platforms without exposing platform-specific code to the user."
+        ],
+        "relatedPatterns": [
+            "Factory Method: Often implemented as part of Abstract Factory to delegate the creation of specific products.",
+            "Singleton: In some cases, Abstract Factory and Singleton work together when the creation of the factory needs to be limited to a single instance."
+        ]
+    },
+    {
+        "name": "Builder",
+        "category": "Creational",
+        "shortDescription": "Separates the construction of a complex object from its representation, allowing the same construction process to create different representations.",
+        "intent": "Construct a complex object step by step and allow different representations of the same type of object.",
+        "applicability": "Use when the creation process of an object should allow different representations or configurations of the object, such as creating complex UI elements or data models with various configurations in mobile applications.",
+        "structure": "Involves a builder class that constructs the object step by step. A director class controls the construction process, ensuring that the parts of the object are built in the correct order.",
+        "participants": [
+            "Builder: Declares the abstract methods for building parts of a product.",
+            "ConcreteBuilder: Implements the methods to construct specific parts of the product and assembles them into a final product.",
+            "Director: Directs the construction process and ensures that the builder is called in the correct order.",
+            "Product: Represents the complex object being built."
+        ],
+        "collaborations": "The director class uses the builder class to assemble the parts of a product in a specific order, ensuring the construction is carried out correctly. The builder provides methods to set up the different parts of the product.",
+        "consequences": "Separates the construction process from the object itself, leading to more readable and maintainable code. It also allows for more flexible object creation and easy modifications of the construction process without altering the object structure.",
+        "implementation": "Define the builder interface with methods for creating various parts of the object, then implement the builder for specific product types. The director class can control the process of object creation by using the builder’s methods.",
+        "knownUses": [
+            "In mobile applications, the Builder pattern is useful for constructing **complex UI layouts** where each component (e.g., buttons, text fields, and images) can be configured in different ways depending on the screen or user preferences. For example, building a dynamic **form screen** with various input fields based on user input or data.",
+            "Building complex data models that require step-by-step assembly, such as creating **network request parameters** or **API payloads** in apps. This allows you to construct objects in a way that makes the creation process clear and organized.",
+            "Creating **dialogs, alerts, or custom views** that have different configurations depending on the use case. For example, a dialog might have different buttons, titles, or icons depending on the context."
+        ],
+        "relatedPatterns": [
+            "Abstract Factory: Used together with Builder when multiple families of related products need to be created.",
+            "Prototype: Useful when you need to create a clone of a product with the same construction process but different configurations."
+        ]
+    },
+    {
+        "name": "Factory Method",
+        "category": "Creational",
+        "shortDescription": "Defines an interface for creating an object, but lets subclasses alter the type of objects that will be created.",
+        "intent": "Allow a class to delegate the responsibility of creating an object to its subclasses, enabling the creation of objects without specifying the exact class of object that will be created.",
+        "applicability": "Use when a class cannot anticipate the type of objects it must create or when the class wants to delegate the instantiation of specific types to subclasses, such as creating different UI elements or data models in mobile apps depending on the context or platform.",
+        "structure": "Involves a creator class that declares a factory method, and concrete subclasses implement the factory method to instantiate specific products. The creator relies on the factory method to create objects, without knowing the specific class of object being created.",
+        "participants": [
+            "Creator: Declares the factory method, which returns an object of type Product. It may also define a default implementation of the factory method.",
+            "ConcreteCreator: Implements the factory method to return an instance of a ConcreteProduct.",
+            "Product: Defines the interface of the object that the creator is responsible for creating.",
+            "ConcreteProduct: Implements the Product interface, representing the specific object being created."
+        ],
+        "collaborations": "The client calls the factory method on the creator class, which delegates the creation of a product to its concrete subclass. The client interacts with the product through its abstract interface, not knowing which concrete class of the product has been instantiated.",
+        "consequences": "Encapsulates object creation, allowing you to add or change products without affecting the client code. It also helps reduce the coupling between the creator and the product, but can increase the number of classes in the system.",
+        "implementation": "Define a factory method in an abstract class, and have concrete subclasses implement the factory method to create specific objects. This allows clients to interact with a general product interface, while the creation logic is handled by subclasses.",
+        "knownUses": [
+            "In mobile applications, **UI component libraries** often use the Factory Method pattern to create platform-specific UI elements, such as buttons or text fields. The base class might define a factory method, and subclasses implement the method to return platform-appropriate components (e.g., iOS UIKit buttons vs Android Material buttons).",
+            "**Networking frameworks** may use the Factory Method to create different types of network requests. For example, a base `NetworkRequest` class could have a factory method to create GET, POST, PUT, or DELETE requests depending on the type of operation required, and subclasses would implement the actual request creation.",
+            "In **game development**, Factory Method can be used to create different types of enemies, weapons, or items dynamically based on level, difficulty, or player progress. For example, a base `Enemy` class can define a factory method for creating various types of enemies, and subclasses implement this method for specific enemy behaviors."
+        ],
+        "relatedPatterns": [
+            "Abstract Factory: Used when there are families of related products that need to be created, rather than a single product.",
+            "Builder: Can be used with Factory Method when the object creation process is more complex and needs to be done step-by-step."
+        ]
+    },
+    {
+        "name": "Prototype",
+        "category": "Creational",
+        "shortDescription": "Specifies the kinds of objects to create using a prototype instance and create new objects by copying this prototype.",
+        "intent": "Allow cloning of objects without coupling the client to their specific classes. This helps to create objects based on an existing object (prototype) rather than starting from scratch.",
+        "applicability": "Use when the cost of creating a new instance of an object is more expensive than copying an existing instance. It is useful when the application needs to create new instances of objects that are similar but have slight differences, such as creating multiple variations of a complex data model or UI component.",
+        "structure": "Involves a prototype interface that defines a method for cloning itself, and concrete prototype classes that implement the cloning operation. The client uses the prototype to create new objects by copying the prototype rather than creating new instances from scratch.",
+        "participants": [
+            "Prototype: Declares the cloning method that is used to copy the object.",
+            "ConcretePrototype: Implements the cloning method to produce a new instance that is identical to the current object.",
+            "Client: Requests a copy of the prototype object. It does not need to know the exact class of the object being cloned."
+        ],
+        "collaborations": "The client interacts with the prototype and requests copies of the prototype object. The concrete prototype class implements the cloning method, which creates a new instance of the same type with identical state.",
+        "consequences": "Efficient object creation through cloning, which can save resources and improve performance in situations where object creation is expensive. However, it can be difficult to manage deep cloning for objects that have nested or complex structures, and there might be challenges in maintaining the integrity of cloned objects.",
+        "implementation": "Define the `clone` method in the prototype interface, then implement it in concrete prototype classes. Ensure that the clone method properly copies the necessary properties, and if necessary, use deep cloning for nested objects.",
+        "knownUses": [
+            "In mobile applications, the Prototype pattern is useful for creating **user profile templates** where the user can copy a preconfigured profile and modify it slightly, such as in social networking apps where multiple similar user profiles might be created and personalized.",
+            "In **UI component libraries**, a **prototype button** or **prototype cell** can be cloned and customized for various use cases, allowing for efficient creation of visually consistent UI elements with slight variations in text, colors, or functionality.",
+            "In **game development**, the Prototype pattern is used for creating clones of game objects (e.g., enemies, weapons, items) where each cloned object can have small changes in properties like health, position, or attributes, which is especially useful in games with multiple levels or enemy types.",
+            "In **document editing apps**, the Prototype pattern can be used to create a **clone of a document or template** with predefined content. The user can then edit the new document, while the original document remains unchanged."
+        ],
+        "relatedPatterns": [
+            "Abstract Factory: Can be used to create families of objects, while Prototype focuses on cloning a single object.",
+            "Builder: Builder can be used in conjunction with Prototype to create complex objects step-by-step and then clone them."
+        ]
+    },
+    {
+        "name": "Singleton",
+        "category": "Creational",
+        "shortDescription": "Ensures a class has only one instance and provides a global point of access to it.",
+        "intent": "Restrict the instantiation of a class to one single instance, providing a global point of access to that instance. This pattern is used when a single object is needed to coordinate actions across the system.",
+        "applicability": "Use when exactly one instance of a class is needed to control actions or states throughout an application. It is ideal for managing shared resources or coordinating activities that need to be controlled by one central point, such as app-wide settings or services.",
+        "structure": "Involves a class that maintains a static reference to its single instance and a method to retrieve it. The instance is created lazily when it is first accessed to avoid unnecessary resource allocation.",
+        "participants": [
+            "Singleton: Defines the static method for accessing the instance and ensures that only one instance exists.",
+            "Client: Requests the Singleton instance whenever it needs access to shared resources or functionality."
+        ],
+        "collaborations": "The client interacts with the singleton instance by calling a static method (usually named `shared` or `getInstance`). The instance is created the first time it is requested and reused thereafter, ensuring only one instance exists throughout the application's lifetime.",
+        "consequences": "Ensures controlled access to the single instance and reduces memory consumption by avoiding unnecessary object creation. However, excessive reliance on Singleton can lead to hidden dependencies between classes and makes unit testing more challenging.",
+        "implementation": "Create a private static variable for the instance and a public static method to return the instance. Make the constructor private to prevent instantiation from outside the class.",
+        "knownUses": [
+            "In mobile applications, the Singleton pattern is commonly used to manage shared resources such as **networking clients** or **database connections** that need to be accessed throughout the app.",
+            "**App-wide settings** or configurations that need to be accessed from different parts of the app, such as theme settings, language preferences, or user authentication state, are often managed by a Singleton.",
+            "In **logging systems**, a Singleton is used to ensure that there is only one logger instance across the application, reducing redundancy and ensuring consistent log output.",
+            "In **analytics systems**, the Singleton pattern is often applied to manage the interaction with a third-party analytics SDK, ensuring that tracking and data collection are handled by a single point of control."
+        ],
+        "relatedPatterns": [
+            "Abstract Factory: In some cases, Singleton may be used in conjunction with Abstract Factory when a single instance of a factory is required to produce various families of objects.",
+            "Lazy Initialization: Often used in combination with the Singleton pattern to delay the creation of the singleton instance until it is first needed."
+        ]
+    },
+    {
+        "name": "Adapter",
+        "category": "Structural",
+        "shortDescription": "Converts the interface of a class into another interface that a client expects. Adapter allows classes to work together that couldn't otherwise because of incompatible interfaces.",
+        "intent": "Allow objects with incompatible interfaces to collaborate by providing a wrapper class that converts the interface of one class to the expected interface of another.",
+        "applicability": "Use when you have legacy code or third-party libraries with incompatible interfaces that need to work together with the current system or application. It is ideal when integrating external APIs, frameworks, or when adapting old code to new interfaces.",
+        "structure": "Involves an adapter class that converts the interface of the adaptee (the class being adapted) to the target interface expected by the client. The client interacts with the adapter, which delegates calls to the adaptee.",
+        "participants": [
+            "Target: Defines the domain-specific interface that the client uses.",
+            "Client: Collaborates with objects conforming to the Target interface.",
+            "Adaptee: Defines an existing interface that needs to be adapted.",
+            "Adapter: Converts the interface of the Adaptee to the Target interface."
+        ],
+        "collaborations": "The client communicates with the adapter, which translates its calls to the adaptee's interface. The adapter ensures that the client does not need to change its code to work with the adaptee's interface.",
+        "consequences": "Enables interoperability between incompatible interfaces without changing the classes themselves. However, it can introduce additional complexity by adding more classes to the system.",
+        "implementation": "Create an adapter class that implements the target interface and holds a reference to the adaptee. The adapter class will delegate requests to the adaptee's methods.",
+        "knownUses": [
+            "In mobile applications, the Adapter pattern is commonly used to integrate **third-party libraries** with a different interface into the app, such as adapting a network library's API to the app's custom service layer.",
+            "In **UI frameworks**, an adapter might be used to bridge a custom data model with the standard table view or collection view interfaces (e.g., adapting data to work with `UITableView` or `UICollectionView` in iOS).",
+            "The Adapter pattern is also helpful when connecting to **legacy systems** where old APIs or data formats need to be converted to a format that new components can work with, such as adapting old JSON APIs to the new system’s expected response model."
+        ],
+        "relatedPatterns": [
+            "Facade: While the Adapter pattern is used to make incompatible interfaces work together, the Facade pattern provides a simplified interface to a set of interfaces, often encompassing multiple classes or subsystems.",
+            "Bridge: The Adapter pattern is sometimes used in situations where the structure of objects must be adapted, while the Bridge pattern focuses on separating abstraction from implementation."
+        ]
+    },
+    {
+        "name": "Bridge",
+        "category": "Structural",
+        "shortDescription": "Decouples an abstraction from its implementation so that the two can vary independently.",
+        "intent": "Separate the abstraction (interface) from its implementation, allowing both to evolve independently without affecting each other. The Bridge pattern is ideal when both the abstraction and the implementation can vary, and you want to avoid creating a complex inheritance structure.",
+        "applicability": "Use when you need to extend both an abstraction and its implementation, but they should not depend on each other. It is useful when you want to avoid subclass explosion and keep the system flexible for future changes in both parts of the system.",
+        "structure": "Involves an abstraction class that delegates the work to a concrete implementation class. Both the abstraction and the implementation are separate, and the abstraction can change independently of the implementation.",
+        "participants": [
+            "Abstraction: Defines the abstraction interface and contains a reference to an object of type Implementor.",
+            "RefinedAbstraction: Extends the Abstraction interface, adding more specific behavior.",
+            "Implementor: Defines the interface for implementation classes, typically with methods that the abstraction can delegate to.",
+            "ConcreteImplementor: Implements the Implementor interface, providing specific functionality for the abstraction."
+        ],
+        "collaborations": "The abstraction delegates tasks to the implementor, which performs the actual work. This structure allows the abstraction and implementation to evolve independently while still maintaining the connection through the interface.",
+        "consequences": "The Bridge pattern reduces coupling between abstraction and implementation, making it easier to change or extend one without affecting the other. However, it may increase the number of classes and add complexity due to the extra layer of abstraction.",
+        "implementation": "Define an abstraction interface and an implementor interface. Create concrete implementations for both the abstraction and the implementor, and ensure that the abstraction can delegate work to the implementor while keeping their interfaces separate.",
+        "knownUses": [
+            "In mobile applications, the Bridge pattern is commonly used in **custom UI frameworks** where the abstraction might be a view or a control (like a button or text field) and the implementation represents the platform-specific drawing or behavior (e.g., iOS UIKit vs Android Material).",
+            "For apps with **cross-platform** components, the Bridge pattern can be used to separate platform-agnostic code from platform-specific code, allowing for easy switching of implementations while keeping the abstraction the same.",
+            "In **networking applications**, the Bridge pattern can be used to decouple the abstraction of a data service or API client from the implementation of the underlying communication protocol, such as HTTP vs WebSocket connections."
+        ],
+        "relatedPatterns": [
+            "Adapter: The Adapter pattern can also decouple the abstraction from the implementation, but it focuses more on making interfaces compatible, whereas Bridge focuses on maintaining a clear separation and allowing independent changes.",
+            "Composite: While Composite allows you to treat individual objects and compositions of objects uniformly, Bridge allows you to separate the abstraction of an object from its implementation."
+        ]
+    },
+    {
+        "name": "Composite",
+        "category": "Structural",
+        "shortDescription": "Allows you to compose objects into tree-like structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.",
+        "intent": "Allow individual objects and their compositions to be treated uniformly. This pattern is used when you need to represent hierarchies or nested structures, such as part-whole relationships in UI elements or data models.",
+        "applicability": "Use when you need to represent part-whole hierarchies, such as UI components (e.g., buttons, panels, etc.), file systems, or document structures. It is useful when you need to treat individual objects and groups of objects the same way.",
+        "structure": "Involves a component interface that is common to both leaf objects (individual objects) and composite objects (objects containing other objects). Both leaf and composite objects implement the component interface, allowing them to be treated uniformly.",
+        "participants": [
+            "Component: Defines the common interface for leaf and composite objects.",
+            "Leaf: Represents individual objects that do not have sub-components.",
+            "Composite: Contains a collection of child components, either leaf objects or other composites.",
+            "Client: Interacts with the component interface to manipulate objects and sub-objects uniformly."
+        ],
+        "collaborations": "The client interacts with the component interface, which delegates operations to its children (if it's a composite) or performs the operation itself (if it's a leaf). The client is unaware of whether it’s dealing with a leaf or composite object.",
+        "consequences": "Simplifies client code by allowing objects to be treated uniformly. However, it can introduce complexity by adding additional layers of abstraction and making the system harder to understand if not used carefully.",
+        "implementation": "Define a common interface for the leaf and composite objects. The composite class maintains references to its child components and delegates tasks to them. The leaf class performs operations independently.",
+        "knownUses": [
+            "In mobile applications, the Composite pattern is used in **UI layouts** where individual UI components like buttons, labels, and text fields are combined into more complex layouts like forms, panels, and menus.",
+            "In **file systems**, the Composite pattern can represent files and directories, where both are treated as components that can be nested and accessed uniformly by clients.",
+            "In **document editing apps**, the Composite pattern can represent a document's content structure, where elements like paragraphs, images, and tables are combined into larger structures, such as sections or entire documents."
+        ],
+        "relatedPatterns": [
+            "Decorator: Both Composite and Decorator allow you to compose objects, but Composite focuses on creating tree structures, while Decorator focuses on adding behavior dynamically.",
+            "Flyweight: Flyweight is used to share objects efficiently, whereas Composite structures objects hierarchically."
+        ]
+    },
+    {
+        "name": "Decorator",
+        "category": "Structural",
+        "shortDescription": "Attaches additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.",
+        "intent": "Allow the behavior of an object to be extended without modifying its structure. This pattern is useful when you want to add responsibilities to objects at runtime or extend their functionality in a flexible way.",
+        "applicability": "Use when you need to add functionality to objects without changing their code or class. It is useful for UI elements or features that can be dynamically extended, such as adding new behaviors to buttons or views.",
+        "structure": "Involves a decorator class that implements the same interface as the component class. The decorator class contains a reference to the component and delegates calls to the component while adding additional behavior.",
+        "participants": [
+            "Component: Defines the interface for the object that can be decorated.",
+            "ConcreteComponent: Implements the component interface and defines the basic behavior.",
+            "Decorator: Implements the component interface and has a reference to a component. The decorator adds new behavior while delegating to the component.",
+            "ConcreteDecorator: Adds specific responsibilities to the component by wrapping it."
+        ],
+        "collaborations": "The client interacts with the decorator, which delegates to the component. The decorator may modify the behavior of the component by adding additional functionality before or after delegating.",
+        "consequences": "Allows behavior to be added to objects dynamically without modifying their structure. However, it can lead to an excessive number of small classes if overused, making the system harder to understand.",
+        "implementation": "Create a decorator class that implements the same interface as the component and holds a reference to the component. Add new behavior in the decorator while delegating calls to the component.",
+        "knownUses": [
+            "In mobile applications, the Decorator pattern is used to add **additional functionality to UI components**, such as adding shadows, borders, or animations to buttons, text fields, or labels.",
+            "In **networking libraries**, decorators can be used to add **logging** or **authentication** to network requests by wrapping existing request objects with additional functionality.",
+            "In **game development**, the Decorator pattern is useful for **power-ups** or **character abilities** that add new behavior to an existing character or object, such as increased speed or health."
+        ],
+        "relatedPatterns": [
+            "Composite: Both Decorator and Composite allow you to compose objects, but Decorator adds responsibilities, while Composite focuses on structuring objects.",
+            "Proxy: The Proxy pattern can act like a decorator by adding additional behavior to an object, such as lazy loading or access control."
+        ]
+    },
+    {
+        "name": "Facade",
+        "category": "Structural",
+        "shortDescription": "Provides a simplified interface to a complex subsystem. The Facade pattern is used to hide the complexities of a system by providing a unified interface.",
+        "intent": "Simplify interactions with complex systems by providing a high-level interface that delegates requests to a subsystem. It is used to encapsulate the details of the subsystem from the client, making it easier to use.",
+        "applicability": "Use when you need to provide a simplified interface to a complex system. It is especially useful in large applications where the system has many components that can be difficult to manage and interact with directly.",
+        "structure": "Involves a facade class that provides a simplified interface to the subsystem. The subsystem contains various classes that perform specific tasks, and the facade delegates the client requests to the appropriate subsystem classes.",
+        "participants": [
+            "Facade: Defines a simplified interface to the subsystem, delegating tasks to the subsystem components.",
+            "Subsystem: Contains the complex parts of the system that perform various tasks. These classes are hidden from the client.",
+            "Client: Interacts with the Facade class to access subsystem functionality."
+        ],
+        "collaborations": "The client interacts with the facade, which delegates requests to the subsystem. The client does not need to know the internal workings of the subsystem.",
+        "consequences": "Simplifies client code and reduces dependencies between the client and subsystem. However, it can become a bottleneck if not properly designed, as it may force all requests through the facade.",
+        "implementation": "Create a facade class that provides methods for each task the subsystem can perform, delegating requests to the appropriate subsystem components.",
+        "knownUses": [
+            "In mobile applications, the Facade pattern is often used to simplify interactions with complex **third-party APIs**, such as payment gateways, networking libraries, or social media integration.",
+            "In **multimedia apps**, a facade might provide a simplified interface for interacting with audio, video, and image processing subsystems.",
+            "In **game development**, the Facade pattern is useful for abstracting away complex subsystems like **physics engines** or **AI systems**, allowing game developers to interact with them through a simplified interface."
+        ],
+        "relatedPatterns": [
+            "Adapter: While both patterns simplify the interface, Facade focuses on providing a unified interface to a subsystem, whereas Adapter translates an incompatible interface to a compatible one.",
+            "Proxy: Both Facade and Proxy provide simplified access, but Proxy can control access to the real object, whereas Facade hides complexity."
+        ]
+    },
+    {
+        "name": "Flyweight",
+        "category": "Structural",
+        "shortDescription": "Uses shared objects to allow a large number of objects to be represented using a small amount of memory.",
+        "intent": "Reduce memory usage by sharing common data between objects. Flyweight is particularly useful when dealing with large numbers of similar objects that can be shared across different parts of the system.",
+        "applicability": "Use when you need to efficiently manage a large number of objects that have identical or nearly identical state, such as rendering many characters in a text editor or visual elements in a game.",
+        "structure": "Involves a flyweight class that stores intrinsic state (shared data) and a client class that manages extrinsic state (unique data). Clients use flyweights by passing extrinsic state data to the flyweight methods.",
+        "participants": [
+            "Flyweight: Stores intrinsic state that can be shared across many instances.",
+            "ConcreteFlyweight: Implements the flyweight interface and stores the shared data.",
+            "FlyweightFactory: Creates and manages flyweights, ensuring that flyweights are shared when appropriate.",
+            "Client: Maintains extrinsic state and uses flyweights for intrinsic state."
+        ],
+        "collaborations": "The client creates or requests flyweights from the factory. The flyweights store the shared state, and the client stores the unique state (extrinsic data) to complete the object.",
+        "consequences": "Flyweight can significantly reduce memory usage by sharing data across many objects. However, it can make the system more complex and harder to understand.",
+        "implementation": "Identify the shared state that can be made common across objects, store it in the flyweight, and create a factory to manage the sharing of flyweights.",
+        "knownUses": [
+            "In mobile applications, Flyweight is used in **graphics rendering engines** to manage shared visual assets like textures or sprites across multiple objects in a game or application.",
+            "In **text processing apps**, Flyweight can be used to store shared data for individual characters (like font or color) while managing unique properties such as position or size.",
+            "In **map applications**, the Flyweight pattern is used to manage shared data for map tiles, while each tile can have unique rendering or metadata."
+        ],
+        "relatedPatterns": [
+            "Singleton: Flyweight often uses the Singleton pattern to ensure that shared objects are created once and reused.",
+            "Prototype: Flyweight can be seen as a form of prototype pattern, where shared objects are cloned with different extrinsic data."
+        ]
+    },
+    {
+        "name": "Proxy",
+        "category": "Structural",
+        "shortDescription": "Provides a surrogate or placeholder for another object, controlling access to it.",
+        "intent": "Control access to an object by providing a proxy. The proxy can act as a placeholder, controlling access, or adding additional behavior before or after delegating to the real object.",
+        "applicability": "Use when you need to control access to an object, such as lazy initialization, access control, or monitoring object usage. It is useful for managing resource-heavy or sensitive objects.",
+        "structure": "Involves a proxy class that controls access to the real object, either by delaying creation (virtual proxy), protecting access (protective proxy), or monitoring activity (remote proxy).",
+        "participants": [
+            "Subject: Defines the common interface for RealSubject and Proxy.",
+            "RealSubject: The actual object that the proxy represents.",
+            "Proxy: Controls access to the RealSubject, and may add additional behavior."
+        ],
+        "collaborations": "The client interacts with the proxy, which forwards requests to the real subject. The proxy can add additional behavior (such as access control or logging) before delegating to the real object.",
+        "consequences": "Proxy patterns allow for control and management of access to objects. However, overuse of proxies can introduce unnecessary complexity or performance overhead.",
+        "implementation": "Define a subject interface, create a proxy class that controls access to the real subject, and use the proxy class in place of the real object.",
+        "knownUses": [
+            "In mobile apps, Proxy is often used for **lazy loading** of resources, such as delaying the creation of complex objects until they're actually needed, saving memory and processing power.",
+            "In **security-sensitive applications**, Proxy can be used to protect access to sensitive data by adding **authentication** or **authorization** checks before forwarding requests to the real object.",
+            "In **networked applications**, Proxy is used for **remote objects**, where the proxy manages the network communication and forwards requests to the real object on a remote server."
+        ],
+        "relatedPatterns": [
+            "Decorator: While Proxy provides access control and additional behavior, Decorator focuses more on adding functionality to an object.",
+            "Facade: Proxy and Facade can both simplify access to an underlying system, but Proxy specifically manages access or modifies behavior."
+        ]
+    },
+    {
+        "name": "Chain of Responsibility",
+        "category": "Behavioral",
+        "shortDescription": "Lets you pass requests along a chain of handlers. Each handler can either process the request or pass it on to the next handler in the chain.",
+        "intent": "Allow multiple objects to process a request without the sender needing to know which object will handle it. This pattern decouples sender and receiver objects.",
+        "applicability": "Use when you need to pass a request through a chain of handlers, where each handler has a specific responsibility. It’s useful in scenarios where you want to decouple request processing or allow different handlers to take different actions depending on the context.",
+        "structure": "Involves a handler interface that defines a method for processing a request and a reference to the next handler in the chain. Concrete handlers implement the request processing logic.",
+        "participants": [
+            "Handler: Defines the interface for processing requests and has a reference to the next handler.",
+            "ConcreteHandler: Implements the request processing logic, either handling the request or passing it to the next handler.",
+            "Client: Initiates the request by passing it to the first handler in the chain."
+        ],
+        "collaborations": "The client sends a request to the first handler in the chain. Each handler either processes the request or passes it to the next handler until the request is handled or reaches the end of the chain.",
+        "consequences": "Decouples sender and receiver, allowing flexibility in adding or removing handlers. However, it can introduce unnecessary complexity if the chain becomes too long.",
+        "implementation": "Create a handler interface with a `handleRequest()` method, then create concrete handlers that implement the method. Each handler can either process the request or pass it to the next handler in the chain.",
+        "knownUses": [
+            "In mobile apps, Chain of Responsibility is useful in handling **UI events**, where events (like button clicks or gestures) are passed along a chain of handlers until one processes it.",
+            "In **networking libraries**, the pattern can be used for **request processing pipelines**, where each handler checks or modifies a request before passing it on.",
+            "In **error handling** systems, different handlers might process various types of errors and exceptions, passing them through a chain until the correct handler takes action."
+        ],
+        "relatedPatterns": [
+            "Command: Both patterns involve passing requests, but Command encapsulates the request into an object, while Chain of Responsibility passes it through handlers.",
+            "Mediator: In cases where communication between objects is necessary, Chain of Responsibility can be seen as a way to delegate responsibility across various components."
+        ]
+    },
+    {
+        "name": "Command",
+        "category": "Behavioral",
+        "shortDescription": "Encapsulates a request as an object, allowing for parameterization of clients with different requests, queuing of requests, and logging of the requests.",
+        "intent": "Decouple the sender of a request from the object that processes the request, allowing for parameterization of requests, queuing, and undo/redo operations.",
+        "applicability": "Use when you want to encapsulate requests, allowing you to store or execute them at a later time. It is also useful for implementing undo/redo operations in user interfaces or queuing tasks.",
+        "structure": "Involves creating a Command interface with an execute method, concrete command classes that implement the execute method, and an invoker that triggers the command execution.",
+        "participants": [
+            "Command: Defines the interface for executing requests.",
+            "ConcreteCommand: Implements the Command interface and binds a request to a specific action.",
+            "Invoker: Asks the command to execute the request.",
+            "Receiver: Knows how to perform the operations to satisfy a request.",
+            "Client: Creates a command object and sets up the receiver and invoker."
+        ],
+        "collaborations": "The client creates a command object, which encapsulates a request. The invoker triggers the execution of the command, and the command delegates the actual work to the receiver.",
+        "consequences": "Decouples sender and receiver, allowing for flexible handling of requests and making it easy to add new types of requests. However, it can lead to a proliferation of command classes.",
+        "implementation": "Create a Command interface with an `execute()` method, concrete command classes that implement the `execute()` method, and an invoker that calls the `execute()` method on the command.",
+        "knownUses": [
+            "In mobile apps, Command is useful for implementing **undo/redo functionality**, where each user action (such as adding a note or changing a setting) is encapsulated as a command that can be undone or redone.",
+            "In **text editors**, the Command pattern can be used for managing **editing operations** like copy, paste, and delete, allowing each operation to be treated as a command.",
+            "In **gaming apps**, the Command pattern can be used to queue user actions like movements, attacks, or abilities, which can be executed later."
+        ],
+        "relatedPatterns": [
+            "Chain of Responsibility: Both patterns involve handling requests, but Command encapsulates the request into an object, while Chain of Responsibility passes it through a chain of handlers.",
+            "Memento: The Command pattern can be used in conjunction with Memento to store the state before and after executing commands for undo functionality."
+        ]
+    },
+    {
+        "name": "Interpreter",
+        "category": "Behavioral",
+        "shortDescription": "Defines a grammar for interpreting sentences in a language, providing a way to evaluate expressions in that language.",
+        "intent": "Interpret sentences or expressions in a language by using grammar rules. This pattern is particularly useful for designing interpreters or compilers for a custom language or domain-specific language (DSL).",
+        "applicability": "Use when you need to evaluate sentences or expressions in a domain-specific language, such as mathematical expressions, queries, or configuration files.",
+        "structure": "Involves defining an abstract expression class, which has an `interpret()` method, and concrete classes for each terminal or non-terminal expression.",
+        "participants": [
+            "Expression: Defines an interface for interpreting a sentence or expression.",
+            "TerminalExpression: Represents a terminal symbol in the grammar and implements the `interpret()` method.",
+            "NonTerminalExpression: Represents a non-terminal symbol and delegates interpretation to its children.",
+            "Context: Holds the information needed for interpreting expressions."
+        ],
+        "collaborations": "The client creates an expression based on the grammar rules and passes it to the interpreter for evaluation. The interpreter uses the context to perform its work.",
+        "consequences": "Interpreter allows you to define a language and evaluate expressions based on that language, but it can result in a large number of classes if the grammar is complex.",
+        "implementation": "Create an expression interface with an `interpret()` method and concrete classes for each grammar rule. Each class will implement the logic for interpreting the sentence based on its type.",
+        "knownUses": [
+            "In mobile apps, Interpreter is used for **parsing** and **evaluating queries**, such as filtering items in a list, searching within a specific data model, or processing configuration files.",
+            "In **game development**, it can be used to process in-game commands or **scripting languages** for NPC behavior, quest systems, or puzzle mechanics.",
+            "In **form validation** libraries, Interpreter can be used to evaluate **validation rules** specified in a domain-specific language."
+        ],
+        "relatedPatterns": [
+            "Strategy: Interpreter can be seen as a variant of the Strategy pattern, where each interpreter represents a different strategy for evaluating expressions.",
+            "Composite: The Interpreter pattern often uses a composite structure to represent a tree of expressions, where non-terminals have child expressions."
+        ]
+    },
+    {
+        "name": "Iterator",
+        "category": "Behavioral",
+        "shortDescription": "Provides a way to access elements of an aggregate object sequentially without exposing its underlying representation.",
+        "intent": "Allow clients to traverse a collection of objects without exposing the internal structure of the collection. This pattern is used to iterate over elements in a collection or container.",
+        "applicability": "Use when you want to provide a way to iterate over the elements of a collection, such as a list, set, or map, without exposing the collection's internal structure.",
+        "structure": "Involves creating an iterator interface that defines methods like `next()`, `hasNext()`, and `current()`, and concrete iterator classes for iterating over specific collections.",
+        "participants": [
+            "Iterator: Defines the interface for accessing elements of the collection.",
+            "ConcreteIterator: Implements the Iterator interface and defines the logic for iterating over the collection.",
+            "Aggregate: Defines an interface for creating an iterator object.",
+            "ConcreteAggregate: Implements the Aggregate interface and provides an iterator for its collection."
+        ],
+        "collaborations": "The client interacts with the iterator to traverse the collection. The iterator handles the logic for accessing each element, and the client does not need to know the underlying data structure.",
+        "consequences": "Provides a clean way to access elements without exposing the internal structure. However, it can increase the complexity of code if multiple iterators are needed for different collections.",
+        "implementation": "Define an iterator interface with methods for accessing elements and concrete iterator classes that implement the interface for specific collections.",
+        "knownUses": [
+            "In mobile apps, Iterator is used for **traversing collections** like lists, arrays, or dictionaries. For example, iterating over a list of items or UI elements in a scrollable view.",
+            "In **networking libraries**, iterators are used to process **data streams** or responses, where each chunk of data can be iterated over sequentially.",
+            "In **game development**, the Iterator pattern is used for iterating over **game objects** (like enemies or items) in a scene or level."
+        ],
+        "relatedPatterns": [
+            "Composite: The Iterator pattern is often used with the Composite pattern to iterate over both leaf and composite components in a uniform way.",
+            "Strategy: Iterators may change their iteration strategy based on the data structure or context."
+        ]
+    },
+    {
+        "name": "Mediator",
+        "category": "Behavioral",
+        "shortDescription": "Defines an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly and allows their interaction to be handled by a mediator.",
+        "intent": "Reduce the communication complexity between objects by centralizing the interaction in a mediator object. It is used to manage the interaction between different components of a system without them directly referencing each other.",
+        "applicability": "Use when you want to avoid direct dependencies between components, such as in systems where many objects need to interact with each other. It simplifies communication by encapsulating the interaction.",
+        "structure": "Involves a mediator interface that defines methods for communication and concrete mediator classes that handle the interaction between components.",
+        "participants": [
+            "Mediator: Defines the interface for communicating with the components.",
+            "ConcreteMediator: Implements the mediator interface and coordinates communication between components.",
+            "Colleague: A component that communicates with other components through the mediator."
+        ],
+        "collaborations": "Components (colleagues) communicate with the mediator instead of directly with each other. The mediator centralizes and controls the communication between colleagues.",
+        "consequences": "Reduces the complexity of object relationships by centralizing communication. However, it can create a bottleneck if the mediator becomes too complex, as all interactions are routed through it.",
+        "implementation": "Define a mediator interface with methods for coordinating communication. Implement concrete mediator classes that manage interactions between colleagues.",
+        "knownUses": [
+            "In mobile apps, Mediator is useful for managing **UI interactions** where different UI components (such as buttons, forms, or dialogs) need to interact with each other in a cohesive way.",
+            "In **chat applications**, the Mediator pattern can be used to manage **user interactions**, where each user communicates through a central mediator (the server).",
+            "In **game development**, Mediator can be used for managing **AI behaviors**, where different game elements (such as NPCs, weapons, and environmental objects) need to interact in complex ways."
+        ],
+        "relatedPatterns": [
+            "Observer: Both patterns manage communication between components, but Mediator centralizes communication, whereas Observer enables direct notifications from subjects to observers.",
+            "Command: Mediator and Command patterns can be used together to encapsulate requests and manage communication through a central mediator."
+        ]
+    },
+    {
+        "name": "Memento",
+        "category": "Behavioral",
+        "shortDescription": "Allows for the capturing and externalizing of an object's state so that it can be restored later without violating encapsulation.",
+        "intent": "Capture and externalize an object's state so that it can be restored to this state later. This pattern is useful for undo/redo functionality in user interfaces or game states.",
+        "applicability": "Use when you need to provide the ability to restore an object to a previous state, such as in undo/redo scenarios in mobile applications or saving/restoring game progress.",
+        "structure": "Involves a memento class that stores the state of an object, an originator that creates and restores mementos, and a caretaker that manages the memento objects.",
+        "participants": [
+            "Originator: The object whose state needs to be saved or restored.",
+            "Memento: Stores the state of the originator.",
+            "Caretaker: Maintains the memento without modifying its contents."
+        ],
+        "collaborations": "The originator creates a memento to store its current state and can later restore the state from a memento. The caretaker stores and retrieves mementos without modifying them.",
+        "consequences": "Allows for saving and restoring the state of an object without exposing its internal details. However, it can increase memory usage if many states need to be saved.",
+        "implementation": "Create a memento class to store the state, an originator class to create and restore mementos, and a caretaker class to manage the mementos.",
+        "knownUses": [
+            "In mobile apps, Memento is used for **undo/redo functionality**, such as in text editors or drawing applications where you need to restore previous states of a document.",
+            "In **game development**, the Memento pattern is often used to **save and load game states** (e.g., player progress, world state, etc.).",
+            "In **video editing applications**, Memento can be used to store **frames** or **edit history**, allowing users to undo or redo actions."
+        ],
+        "relatedPatterns": [
+            "Command: Memento and Command often work together to implement undo/redo functionality, where each action is encapsulated as a command and the previous state is captured using mementos.",
+            "Observer: Memento can be used in conjunction with the Observer pattern to notify listeners when the state of an object has changed."
+        ]
+    },
+    {
+        "name": "Observer",
+        "category": "Behavioral",
+        "shortDescription": "Defines a dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.",
+        "intent": "Allow a subject to notify multiple observers when its state changes, without needing to know who or what the observers are. This pattern is used for event-driven systems.",
+        "applicability": "Use when one object needs to notify multiple objects of state changes, such as in GUI events, real-time data feeds, or push notifications.",
+        "structure": "Involves a subject interface with methods to attach, detach, and notify observers, and concrete observer classes that define the update method.",
+        "participants": [
+            "Subject: Defines methods to attach, detach, and notify observers.",
+            "ConcreteSubject: Implements the subject interface and maintains the state to be observed.",
+            "Observer: Defines the update method to be called when the subject's state changes.",
+            "ConcreteObserver: Implements the observer interface and updates its state based on the subject's state."
+        ],
+        "collaborations": "The observer subscribes to the subject and is notified whenever the subject’s state changes. The subject calls the `update()` method on each observer when the state changes.",
+        "consequences": "Promotes loose coupling between the subject and observers, making it easy to add or remove observers. However, excessive use of observers can lead to performance problems or too many updates.",
+        "implementation": "Create an observer interface with an `update()` method, and a concrete subject that notifies observers of state changes.",
+        "knownUses": [
+            "In mobile apps, Observer is used in **UI frameworks** where changes in data models automatically update views (e.g., **SwiftUI** bindings).",
+            "In **news apps**, Observer can be used for **push notifications** where users subscribe to topics and get updates when a new article is posted.",
+            "In **social media apps**, Observer is used for updating the **newsfeed** or **message notifications** when new content is posted or new messages arrive."
+        ],
+        "relatedPatterns": [
+            "Mediator: Mediator coordinates interactions between objects, while Observer allows one object to notify others when its state changes.",
+            "Strategy: Observer can be used to dynamically change the **behavior** of a system based on its state or user actions."
+        ]
+    },
+    {
+        "name": "State",
+        "category": "Behavioral",
+        "shortDescription": "Allows an object to change its behavior when its internal state changes. The object will appear to change its class.",
+        "intent": "Enable an object to change its behavior based on its state. This pattern is particularly useful for managing state transitions in applications with multiple modes or statuses.",
+        "applicability": "Use when an object has a state-dependent behavior, and you want to encapsulate different behaviors based on the current state.",
+        "structure": "Involves a state interface with methods that represent different actions or behaviors. Concrete states implement these methods to provide different behaviors.",
+        "participants": [
+            "Context: Maintains the current state and delegates behavior to the state object.",
+            "State: Defines the interface for handling requests in different states.",
+            "ConcreteState: Implements the state interface and changes the behavior based on the current state."
+        ],
+        "collaborations": "The context delegates requests to the current state. The state defines the behavior for a particular state, and the context changes states based on conditions.",
+        "consequences": "Simplifies state-dependent behavior by encapsulating each state in a separate class. However, it can lead to a large number of state classes in complex systems.",
+        "implementation": "Define a state interface with methods representing actions or behaviors. Implement concrete states that change the behavior based on the current state.",
+        "knownUses": [
+            "In mobile apps, State is often used for **navigation flows**, where the app's behavior (UI screens, actions) changes based on the user's progress or status.",
+            "In **form validation**, the State pattern can manage different validation states, where a form can be in various states like valid, invalid, or incomplete.",
+            "In **gaming apps**, the State pattern can be used to manage **character or game state transitions**, like a character’s idle, running, or attacking states."
+        ],
+        "relatedPatterns": [
+            "Strategy: Both patterns allow behavior to be changed dynamically, but State focuses on changing behavior based on an object's state, while Strategy is used to change behavior based on a separate object."
+        ]
+    },
+    {
+        "name": "Strategy",
+        "category": "Behavioral",
+        "shortDescription": "Defines a family of algorithms, encapsulates each one, and makes them interchangeable. The strategy allows the algorithm to vary independently from clients that use it.",
+        "intent": "Allow clients to choose different algorithms or behaviors at runtime. It helps to avoid conditional statements for choosing behaviors and encourages interchangeable logic.",
+        "applicability": "Use when you have multiple related algorithms or behaviors, and you want to select the most appropriate one at runtime. It’s useful when the behavior of a class depends on different conditions.",
+        "structure": "Involves a strategy interface that defines a method for performing the algorithm, concrete strategy classes that implement the algorithm, and a context class that uses a strategy object.",
+        "participants": [
+            "Context: Maintains a reference to a strategy object and can change it.",
+            "Strategy: Defines the interface for the algorithm or behavior.",
+            "ConcreteStrategy: Implements the strategy interface with a specific algorithm or behavior."
+        ],
+        "collaborations": "The context object uses the strategy to perform an action. The strategy can be changed at runtime to vary the algorithm being used.",
+        "consequences": "Makes it easy to switch between algorithms at runtime and promotes flexibility. However, the number of strategy classes can increase if there are many different algorithms.",
+        "implementation": "Create a strategy interface with methods for each algorithm, and implement concrete strategies that provide different algorithms. The context delegates the work to the strategy.",
+        "knownUses": [
+            "In mobile apps, Strategy is useful for managing **sorting algorithms** or **filtering** strategies, where the user can choose different sorting or filtering methods based on preferences.",
+            "In **payment systems**, Strategy can be used to manage different **payment methods** (credit card, PayPal, etc.), where the algorithm for processing payments changes based on the selected method.",
+            "In **game development**, Strategy is often used to vary the **AI behavior** (e.g., aggressive vs. defensive strategies for enemy characters)."
+        ],
+        "relatedPatterns": [
+            "State: Both patterns deal with changing behaviors, but State is focused on changing the behavior of a single object based on its state, while Strategy allows different behaviors to be chosen and applied dynamically."
+        ]
+    },
+    {
+        "name": "Template Method",
+        "category": "Behavioral",
+        "shortDescription": "Defines the skeleton of an algorithm in the method, deferring some steps to subclasses. The template method allows subclasses to redefine certain steps of the algorithm without changing the algorithm’s structure.",
+        "intent": "Define the outline of an algorithm in a method and allow subclasses to implement specific parts of the algorithm. It is useful when you have common logic in multiple methods, but each method requires a few specific variations.",
+        "applicability": "Use when you have a common algorithm that can be defined in a base class, but certain steps need to be implemented differently by subclasses. It reduces redundancy in code.",
+        "structure": "Involves an abstract class with a method that defines the template algorithm. Subclasses implement specific steps without modifying the overall structure of the algorithm.",
+        "participants": [
+            "AbstractClass: Defines the template method that outlines the algorithm structure and may define some common methods.",
+            "ConcreteClass: Implements the steps defined by the abstract class."
+        ],
+        "collaborations": "The template method defines the algorithm skeleton, and concrete subclasses implement the specific steps of the algorithm while reusing common functionality from the abstract class.",
+        "consequences": "Encourages code reuse by defining a common algorithm structure, but it can lead to rigid structures if the algorithm needs frequent modification.",
+        "implementation": "Define a template method in an abstract class with common logic. Subclasses implement specific steps that need variation, but they don't change the overall structure.",
+        "knownUses": [
+            "In mobile apps, Template Method can be used in **UI rendering** workflows, where the steps for rendering a view are predefined, but the specific content or style is defined in subclasses.",
+            "In **networking libraries**, Template Method can define the general flow of a request/response cycle, but the specifics (headers, parameters, etc.) are left to subclasses.",
+            "In **file processing systems**, Template Method is used for **processing files** where the general flow of processing (reading, writing, etc.) is fixed, but file-specific operations are customizable."
+        ],
+        "relatedPatterns": [
+            "Strategy: Both patterns provide a way to vary behavior, but Template Method defines the structure of the algorithm, while Strategy allows for the algorithm to be swapped out entirely."
+        ]
+    },
+    {
+        "name": "Visitor",
+        "category": "Behavioral",
+        "shortDescription": "Allows you to define new operations on elements of an object structure without changing the classes of the elements being operated on.",
+        "intent": "Define a new operation for each class of an object structure without changing the classes. The visitor pattern is used when you have a set of classes with different interfaces and you want to perform operations across them without changing their structure.",
+        "applicability": "Use when you need to perform operations on objects that belong to different classes and those operations are likely to change over time.",
+        "structure": "Involves a visitor interface with an `accept()` method that allows elements to accept visitors. Each concrete element class implements the `accept()` method to pass itself to the visitor.",
+        "participants": [
+            "Visitor: Defines an operation to be performed on elements.",
+            "ConcreteVisitor: Implements specific operations for different types of elements.",
+            "Element: Defines the `accept()` method that takes a visitor.",
+            "ConcreteElement: Implements the `accept()` method and passes itself to the visitor."
+        ],
+        "collaborations": "The client creates a visitor and passes it to elements. Each element accepts the visitor and allows it to perform the operation. This allows the operation to be performed across different types of elements without modifying them.",
+        "consequences": "Promotes flexibility by allowing new operations to be added without modifying the elements. However, it can lead to large visitor classes if many operations are needed.",
+        "implementation": "Define a visitor interface with methods for each element class. Implement concrete visitors with specific operations for each element class, and implement the `accept()` method in element classes.",
+        "knownUses": [
+            "In mobile apps, Visitor is useful for performing **cross-cutting operations** on complex models or UI components, such as rendering or validation.",
+            "In **financial applications**, Visitor can be used to apply various **tax or discount calculations** across a set of different types of products or services.",
+            "In **game development**, the Visitor pattern is used for applying various **actions** to different types of game objects, such as scoring, power-ups, or damage calculations."
+        ],
+        "relatedPatterns": [
+            "Composite: The Visitor pattern is often used in combination with the Composite pattern to apply operations across a composite structure of elements."
+        ]
+    }
+]
