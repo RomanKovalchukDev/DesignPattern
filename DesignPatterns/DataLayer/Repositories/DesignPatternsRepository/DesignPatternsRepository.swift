@@ -8,21 +8,34 @@
 import Foundation
 
 protocol DesignPatternsRepositoryType {
-    func getDesignPatters() throws -> [DesignPatternModel]
+    associatedtype ErrorType: LocalizedError
+    func getDesignPatters() throws(ErrorType) -> [DesignPatternModel]
 }
 
-struct DesignPatternsRepository: DesignPatternsRepositoryType {
+final class DesignPatternsRepository: DesignPatternsRepositoryType {
     
     // MARK: - Internal types
     
-    enum RepoError: LocalizedError {
+    enum RepositoryError: LocalizedError {
         case unknown
         case noData
         case decodingError
         case noFile
         
         var localizedDescription: String {
-            "Error"
+            switch self {
+            case .unknown:
+                return .localizable(.unknownError)
+                
+            case .noData:
+                return .localizable(.noDataError)
+                
+            case .decodingError:
+                return .localizable(.decodingError)
+                
+            case .noFile:
+                return .localizable(.noFileError)
+            }
         }
     }
     
@@ -35,20 +48,20 @@ struct DesignPatternsRepository: DesignPatternsRepositoryType {
     
     // MARK: - Methods(public)
     
-    func getDesignPatters() throws(RepoError) -> [DesignPatternModel] {
+    func getDesignPatters() throws(RepositoryError) -> [DesignPatternModel] {
         guard let jsonURL = Bundle.main.url(
             forResource: Constants.GOFPatterns.fileName,
             withExtension: Constants.GOFPatterns.fileExtension
         ) else {
-            throw RepoError.noFile
+            throw RepositoryError.noFile
         }
-        
+                
         guard let data = try? Data(contentsOf: jsonURL) else {
-            throw RepoError.noData
+            throw RepositoryError.noData
         }
         
         guard let response = try? JSONDecoder.default.decode([DesignPatternResponse].self, from: data) else {
-            throw RepoError.decodingError
+            throw RepositoryError.decodingError
         }
         
         let mappedModels = response.map(DesignPatternModel.init)

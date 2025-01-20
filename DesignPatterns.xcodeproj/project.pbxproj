@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B01D44A92D3D9A5400DC8431 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = B01D44A82D3D9A5400DC8431 /* SFSafeSymbols */; };
+		B034F6932D3DCF1400C183AC /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = B034F6922D3DCF1400C183AC /* SwiftMessages */; };
 		B080199C2D3BC1D100B982D5 /* NerdzUtils in Frameworks */ = {isa = PBXBuildFile; productRef = B080199B2D3BC1D100B982D5 /* NerdzUtils */; };
 		B0801A512D3C31B200B982D5 /* NerdzInject in Frameworks */ = {isa = PBXBuildFile; productRef = B0801A502D3C31B200B982D5 /* NerdzInject */; };
 /* End PBXBuildFile section */
@@ -28,7 +30,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01D44A92D3D9A5400DC8431 /* SFSafeSymbols in Frameworks */,
 				B080199C2D3BC1D100B982D5 /* NerdzUtils in Frameworks */,
+				B034F6932D3DCF1400C183AC /* SwiftMessages in Frameworks */,
 				B0801A512D3C31B200B982D5 /* NerdzInject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,6 +63,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B080196D2D3B091000B982D5 /* Build configuration list for PBXNativeTarget "DesignPatterns" */;
 			buildPhases = (
+				B01D44F62D3DA1D300DC8431 /* Run SwiftGen */,
 				B080195B2D3B091000B982D5 /* Sources */,
 				B080195C2D3B091000B982D5 /* Frameworks */,
 				B080195D2D3B091000B982D5 /* Resources */,
@@ -76,6 +81,8 @@
 			packageProductDependencies = (
 				B080199B2D3BC1D100B982D5 /* NerdzUtils */,
 				B0801A502D3C31B200B982D5 /* NerdzInject */,
+				B01D44A82D3D9A5400DC8431 /* SFSafeSymbols */,
+				B034F6922D3DCF1400C183AC /* SwiftMessages */,
 			);
 			productName = DesignPatterns;
 			productReference = B080195F2D3B091000B982D5 /* DesignPatterns.app */;
@@ -109,6 +116,8 @@
 				B080199A2D3BC1D100B982D5 /* XCRemoteSwiftPackageReference "NerdzUtils" */,
 				B0801A472D3C271000B982D5 /* XCRemoteSwiftPackageReference "xcstrings-tool-plugin" */,
 				B0801A4F2D3C31B200B982D5 /* XCRemoteSwiftPackageReference "NerdzInject" */,
+				B01D44A72D3D9A5400DC8431 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				B034F6912D3DCF1400C183AC /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B08019602D3B091000B982D5 /* Products */;
@@ -131,6 +140,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		B01D44F62D3DA1D300DC8431 /* Run SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftGen";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftgen config run\nelse\n    echo \"warning: `swiftgen` command not found\"\nfi\n";
+		};
 		B0801A452D3C24D600B982D5 /* Run SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -375,6 +403,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B01D44A72D3D9A5400DC8431 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.3.0;
+			};
+		};
+		B034F6912D3DCF1400C183AC /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.1;
+			};
+		};
 		B080199A2D3BC1D100B982D5 /* XCRemoteSwiftPackageReference "NerdzUtils" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nerdzlab/NerdzUtils.git";
@@ -402,6 +446,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B01D44A82D3D9A5400DC8431 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B01D44A72D3D9A5400DC8431 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+		B034F6922D3DCF1400C183AC /* SwiftMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B034F6912D3DCF1400C183AC /* XCRemoteSwiftPackageReference "SwiftMessages" */;
+			productName = SwiftMessages;
+		};
 		B080199B2D3BC1D100B982D5 /* NerdzUtils */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B080199A2D3BC1D100B982D5 /* XCRemoteSwiftPackageReference "NerdzUtils" */;

@@ -3,8 +3,14 @@
 ## In case your config entries all use a common input/output parent directory, you can specify those here.
 ##   Every input/output paths in the rest of the config will then be expressed relative to these.
 ##   Those two top-level keys are optional and default to "." (the directory of the config file).
- input_dir: SwiftUIProjectTemplate/
- output_dir: SwiftUIProjectTemplate/SupportingFiles/Generated/
+ input_dir: DesignPatterns/
+ output_dir: DesignPatterns/SupportingFiles/Generated/
+ 
+ json:
+  inputs: SupportingFiles/Data/
+  outputs:
+    templateName: runtime-swift5
+    output: JSON+Generated.swift
 
 ## Generate constants for your localized strings.
 ##   Be sure that SwiftGen only parses ONE locale (typically Base.lproj, or en.lproj, or whichever your development region is); otherwise it will generate the same keys multiple times.
@@ -22,15 +28,15 @@
 ##   This example also shows how to provide additional parameters to your template to customize the output.
 ##   - Especially the `forceProvidesNamespaces: true` param forces to create sub-namespace for each folder/group used in your Asset Catalogs, even the ones without "Provides Namespace". Without this param, SwiftGen only generates sub-namespaces for folders/groups which have the "Provides Namespace" box checked in the Inspector pane.
 ##   - To know which params are supported for a template, use `swiftgen template doc xcassets swift5` to open the template documentation on GitHub.
- xcassets:
-   inputs:
-     - SupportingFiles/Assets/
-   outputs:
-     - templateName: swift5
-       params:
-         forceProvidesNamespaces: true
-         allValues: true
-       output: XCassets+Generated.swift
+# xcassets:
+#   inputs:
+#     - SupportingFiles/Assets/
+#   outputs:
+#     - templateName: swift5
+#       params:
+#         forceProvidesNamespaces: true
+#         allValues: true
+#       output: XCassets+Generated.swift
 
 ## Generate constants for your storyboards and XIBs.
 ##   This one generates 2 output files, one containing the storyboard scenes, and another for the segues.

@@ -18,6 +18,32 @@ struct DesignPatternModel {
     let knownUses: [String]
     let relatedPatterns: [String]
     
+    init(
+        name: String,
+        category: DesignPatternCategory,
+        shortDescription: String = "",
+        intent: String = "",
+        applicability: String = "",
+        structure: String = "",
+        participants: [String] = [],
+        collaboration: String = "",
+        implementation: String = "",
+        knownUses: [String] = [],
+        relatedPatterns: [String] = []
+    ) {
+        self.name = name
+        self.category = category
+        self.shortDescription = shortDescription
+        self.intent = intent
+        self.applicability = applicability
+        self.structure = structure
+        self.participants = participants
+        self.collaboration = collaboration
+        self.implementation = implementation
+        self.knownUses = knownUses
+        self.relatedPatterns = relatedPatterns
+    }
+    
     init(response: DesignPatternResponse) {
         self.name = response.name
         self.category = DesignPatternCategory(response: response.category)

@@ -11,7 +11,6 @@ import SwiftUI
 struct DesignPatternsApp: App {
     var body: some Scene {
         WindowGroup {
-            RootView(viewModel: RootViewModel())
         }
     }
 }

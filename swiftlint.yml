@@ -560,5 +560,10 @@ custom_rules:
         regex: 'guard([^\{]* (let|var) ){2,}[^\{]*\{'
         message: "Split multiple casts into several guard/if options"
         severity: warning
+    sf_safe_symbol:
+        name: "Safe SFSymbol"
+        message: "Use `SFSafeSymbols` via `systemSymbol` parameters for type safety."
+        regex: "(Image\\(systemName:)|(NSImage\\(symbolName:)|(Label[^,]+?,\\s*systemImage:)|(UIApplicationShortcutIcon\\(systemImageName:)"
+        severity: warning
         
 reporter: "xcode"
