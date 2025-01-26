@@ -67,6 +67,38 @@
         }
       }
     },
+    "patternDetailsCattegory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Category %@"
+          }
+        }
+      }
+    },
+    "patternDetailsDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description /n %@"
+          }
+        }
+      }
+    },
+    "Patterns" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patterns"
+          }
+        }
+      }
+    },
     "rootScreenTitle" : {
       "extractionState" : "manual",
       "localizations" : {

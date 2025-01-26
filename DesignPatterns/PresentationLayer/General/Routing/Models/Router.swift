@@ -30,6 +30,7 @@ class Router<Destination: Routable>: ObservableObject {
     
     /// Returns the view associated with the specified `Routable`
     @ViewBuilder
+    @MainActor
     func view(for route: Destination) -> some View {
         route.viewToDisplay(router: router(routeType: route.navigationType))
     }

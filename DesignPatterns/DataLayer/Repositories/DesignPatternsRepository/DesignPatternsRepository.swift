@@ -8,8 +8,7 @@
 import Foundation
 
 protocol DesignPatternsRepositoryType {
-    associatedtype ErrorType: LocalizedError
-    func getDesignPatters() throws(ErrorType) -> [DesignPatternModel]
+    func getDesignPatters() throws -> [DesignPatternModel]
 }
 
 final class DesignPatternsRepository: DesignPatternsRepositoryType {
@@ -48,7 +47,7 @@ final class DesignPatternsRepository: DesignPatternsRepositoryType {
     
     // MARK: - Methods(public)
     
-    func getDesignPatters() throws(RepositoryError) -> [DesignPatternModel] {
+    func getDesignPatters() throws -> [DesignPatternModel] {
         guard let jsonURL = Bundle.main.url(
             forResource: Constants.GOFPatterns.fileName,
             withExtension: Constants.GOFPatterns.fileExtension

@@ -10,38 +10,51 @@ import Combine
 import NerdzInject
 
 final class PatternsListViewModel: PatternsListViewModelType {
-    var patternSections: [PatternsListSectionModel] = []
     
-    var message: AppMessageDisplayModel?
+    // MARK: - Properties(public)
+    
+    @Published @MainActor var message: AppMessageDisplayModel?
+    @Published @MainActor var patternSections: [PatternsListSectionDisplayModel] = []
+    
+    // MARK: - Properties(private)
 
-    @StateObject private var router: Router<RootRoute>
+    private let router: Router<RootRoute>
+    
+    // MARK: - Dependencies
+    
     @ForceInject private var patternsRepository: any DesignPatternsRepositoryType
     
     // MARK: - Life cycle
     
     init(router: Router<RootRoute>) {
-        _router = StateObject(wrappedValue: router)
+        self.router = router
     }
     
     // MARK: - Methods(public)
         
-    func loadPatterns() {
+    func loadPatterns() async {
         do {
             let models = try patternsRepository.getDesignPatters()
             let mappedModels = models.map(PatternsListDisplayModel.init)
-            let sections = Dictionary(grouping: mappedModels, by: \.category)
-                .map { (key: PatternsListCategoryModel, value: [PatternsListDisplayModel]) in
-                    PatternsListSectionModel(category: key, items: value, isExpanded: false)
-                }
             
-            patternSections = sections
+            let sections = Dictionary(grouping: mappedModels, by: \.category)
+                .map { (key: PatternsListCategoryDisplayModel, value: [PatternsListDisplayModel]) in
+                    PatternsListSectionDisplayModel(category: key, items: value, isExpanded: true)
+                }
+                .sorted(by: { $0.category.sortOrder < $1.category.sortOrder })
+            
+            await MainActor.run { [weak self] in
+                self?.patternSections = sections
+            }
         }
         catch {
-            message = AppMessageDisplayModel(error: error.localizedDescription)
+            await MainActor.run { [weak self] in
+                self?.message = AppMessageDisplayModel(error: error.localizedDescription)
+            }
         }
     }
     
-    func togleSectionVisibility(for section: PatternsListSectionModel) {
+    func toggleSectionVisibility(for section: PatternsListSectionDisplayModel) {
         guard let index = patternSections.firstIndex(where: { $0.id == section.id }) else {
             return
         }

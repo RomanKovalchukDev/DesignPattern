@@ -1,5 +1,5 @@
 //
-//  PatternsListCategoryModel.swift
+//  PatternsListCategoryDisplayModel.swift
 //  DesignPatterns
 //
 //  Created by Roman Kovalchuk on 19.01.2025.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PatternsListCategoryModel: Hashable {
+enum PatternsListCategoryDisplayModel: Hashable {
     case creational
     case structural
     case behavioral
@@ -26,6 +26,41 @@ enum PatternsListCategoryModel: Hashable {
             
         case .architectural:
             return .localizable(.architecturalPaternCategory)
+        }
+    }
+    
+    var sortOrder: Int {
+        switch self {
+        case .creational:
+            return 1
+            
+        case .structural:
+            return 2
+            
+        case .behavioral:
+            return 3
+            
+        case .architectural:
+            return 4
+        }
+    }
+}
+
+extension PatternsListCategoryDisplayModel {
+    
+    var rawData: DesignPatternCategory {
+        switch self {
+        case .creational:
+            return .creational
+            
+        case .structural:
+            return .structural
+            
+        case .behavioral:
+            return .behavioral
+            
+        case .architectural:
+            return .architectural
         }
     }
     

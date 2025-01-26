@@ -10,7 +10,7 @@
 		B01D44A92D3D9A5400DC8431 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = B01D44A82D3D9A5400DC8431 /* SFSafeSymbols */; };
 		B034F6932D3DCF1400C183AC /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = B034F6922D3DCF1400C183AC /* SwiftMessages */; };
 		B080199C2D3BC1D100B982D5 /* NerdzUtils in Frameworks */ = {isa = PBXBuildFile; productRef = B080199B2D3BC1D100B982D5 /* NerdzUtils */; };
-		B0801A512D3C31B200B982D5 /* NerdzInject in Frameworks */ = {isa = PBXBuildFile; productRef = B0801A502D3C31B200B982D5 /* NerdzInject */; };
+		B0ECB8632D466B62006D419C /* NerdzInject in Frameworks */ = {isa = PBXBuildFile; productRef = B0ECB8622D466B62006D419C /* NerdzInject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 				B01D44A92D3D9A5400DC8431 /* SFSafeSymbols in Frameworks */,
 				B080199C2D3BC1D100B982D5 /* NerdzUtils in Frameworks */,
 				B034F6932D3DCF1400C183AC /* SwiftMessages in Frameworks */,
-				B0801A512D3C31B200B982D5 /* NerdzInject in Frameworks */,
+				B0ECB8632D466B62006D419C /* NerdzInject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,9 +80,9 @@
 			name = DesignPatterns;
 			packageProductDependencies = (
 				B080199B2D3BC1D100B982D5 /* NerdzUtils */,
-				B0801A502D3C31B200B982D5 /* NerdzInject */,
 				B01D44A82D3D9A5400DC8431 /* SFSafeSymbols */,
 				B034F6922D3DCF1400C183AC /* SwiftMessages */,
+				B0ECB8622D466B62006D419C /* NerdzInject */,
 			);
 			productName = DesignPatterns;
 			productReference = B080195F2D3B091000B982D5 /* DesignPatterns.app */;
@@ -115,9 +115,9 @@
 			packageReferences = (
 				B080199A2D3BC1D100B982D5 /* XCRemoteSwiftPackageReference "NerdzUtils" */,
 				B0801A472D3C271000B982D5 /* XCRemoteSwiftPackageReference "xcstrings-tool-plugin" */,
-				B0801A4F2D3C31B200B982D5 /* XCRemoteSwiftPackageReference "NerdzInject" */,
 				B01D44A72D3D9A5400DC8431 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				B034F6912D3DCF1400C183AC /* XCRemoteSwiftPackageReference "SwiftMessages" */,
+				B0ECB8612D466B62006D419C /* XCRemoteSwiftPackageReference "NerdzInject" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B08019602D3B091000B982D5 /* Products */;
@@ -435,7 +435,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		B0801A4F2D3C31B200B982D5 /* XCRemoteSwiftPackageReference "NerdzInject" */ = {
+		B0ECB8612D466B62006D419C /* XCRemoteSwiftPackageReference "NerdzInject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nerdzlab/NerdzInject.git";
 			requirement = {
@@ -466,9 +466,9 @@
 			package = B0801A472D3C271000B982D5 /* XCRemoteSwiftPackageReference "xcstrings-tool-plugin" */;
 			productName = "plugin:XCStringsToolPlugin";
 		};
-		B0801A502D3C31B200B982D5 /* NerdzInject */ = {
+		B0ECB8622D466B62006D419C /* NerdzInject */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B0801A4F2D3C31B200B982D5 /* XCRemoteSwiftPackageReference "NerdzInject" */;
+			package = B0ECB8612D466B62006D419C /* XCRemoteSwiftPackageReference "NerdzInject" */;
 			productName = NerdzInject;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -6,6 +6,7 @@ protocol Routable: Hashable, Identifiable {
     
     var navigationType: NavigationType { get }
     
+    @MainActor
     func viewToDisplay(router: Router<Self>) -> ViewType
 }
 

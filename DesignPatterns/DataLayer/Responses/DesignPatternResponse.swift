@@ -13,7 +13,7 @@ struct DesignPatternResponse: Decodable {
     let applicability: String
     let structure: String
     let participants: [String]
-    let collaboration: String
+    let collaboration: String?
     let implementation: String
     let knownUses: [String]
     let relatedPatterns: [String]

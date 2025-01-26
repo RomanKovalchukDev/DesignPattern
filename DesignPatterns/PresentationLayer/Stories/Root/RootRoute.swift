@@ -34,6 +34,7 @@ enum RootRoute: Routable {
     
     // MARK: - Methods(public)
     
+    @MainActor
     @ViewBuilder
     func viewToDisplay(router: Router<RootRoute>) -> some View {
         switch self {
@@ -47,16 +48,18 @@ enum RootRoute: Routable {
     
     // MARK: - Methods(private)
     
+    @MainActor
     @ViewBuilder
     private func createPatternListView(with router: Router<RootRoute>) -> some View {
         PatternsListView(viewModel: PatternsListViewModel(router: router))
     }
     
+    @MainActor
     @ViewBuilder
     private func createPatternDetailsView(
         with router: Router<RootRoute>,
         for model: DesignPatternModel
     ) -> some View {
-        Text(model.name)
+        PatternDetailsView(viewModel: PatternDetailsViewModel(rawData: model, router: router))
     }
 }
