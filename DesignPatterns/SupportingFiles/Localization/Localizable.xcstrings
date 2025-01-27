@@ -45,6 +45,9 @@
         }
       }
     },
+    "Dev" : {
+
+    },
     "noDataError" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -99,6 +102,9 @@
         }
       }
     },
+    "Prod" : {
+
+    },
     "rootScreenTitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -120,6 +126,12 @@
           }
         }
       }
+    },
+    "Switch to ipad" : {
+
+    },
+    "Switch to iphone" : {
+
     },
     "unknownError" : {
       "extractionState" : "manual",
