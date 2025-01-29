@@ -10,8 +10,6 @@
  I'm using this patter when i need to use some service in the view
  */
 
-// MARK: - Sample
-
 import UIKit
 import SwiftUI
 
@@ -23,7 +21,7 @@ final class SomeLibraryImageLoader: ImageLoader {
     static let shared = SomeLibraryImageLoader()
     
     func loadImage() async throws -> UIImage {
-        #imageLiteral(resourceName: "image")
+        UIImage()
     }
 }
 

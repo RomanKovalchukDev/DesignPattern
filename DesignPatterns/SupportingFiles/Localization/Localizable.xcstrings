@@ -1,6 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "📄 Invoice" : {
+
+    },
+    "📊 Report" : {
+
+    },
+    "Add to Favorites" : {
+
+    },
+    "Amount: $500\nDue Date: 01-Feb-2025" : {
+
+    },
     "architecturalPaternCategory" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -23,6 +35,15 @@
         }
       }
     },
+    "Books" : {
+
+    },
+    "By %@" : {
+
+    },
+    "Chat Room" : {
+
+    },
     "creationalPaternCategory" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -33,6 +54,9 @@
           }
         }
       }
+    },
+    "Current Text: %@" : {
+
     },
     "decodingError" : {
       "extractionState" : "manual",
@@ -45,7 +69,49 @@
         }
       }
     },
+    "Details" : {
+
+    },
     "Dev" : {
+
+    },
+    "Edit Post" : {
+
+    },
+    "Enter text" : {
+
+    },
+    "Enter your message" : {
+
+    },
+    "Export as JSON" : {
+
+    },
+    "Export as XML" : {
+
+    },
+    "Export result:" : {
+
+    },
+    "Face Enemy" : {
+
+    },
+    "Generated on: 01-Feb-2025" : {
+
+    },
+    "Gold: %lld" : {
+
+    },
+    "Idle" : {
+
+    },
+    "Loading..." : {
+
+    },
+    "Media Player" : {
+
+    },
+    "Name" : {
 
     },
     "noDataError" : {
@@ -102,7 +168,40 @@
         }
       }
     },
+    "Pause" : {
+
+    },
+    "Paused" : {
+
+    },
+    "Play" : {
+
+    },
+    "Playing..." : {
+
+    },
+    "Playlist" : {
+
+    },
+    "Post Details" : {
+
+    },
+    "Post Image" : {
+
+    },
     "Prod" : {
+
+    },
+    "Product extended view" : {
+
+    },
+    "Redo" : {
+
+    },
+    "Remove from Favorites" : {
+
+    },
+    "Report Content: Sales increased by 20% this quarter." : {
 
     },
     "rootScreenTitle" : {
@@ -115,6 +214,21 @@
           }
         }
       }
+    },
+    "Save state" : {
+
+    },
+    "Select Image" : {
+
+    },
+    "Send" : {
+
+    },
+    "Show Favorites Only" : {
+
+    },
+    "Stop" : {
+
     },
     "structuralPaternCategory" : {
       "extractionState" : "manual",
@@ -133,6 +247,15 @@
     "Switch to iphone" : {
 
     },
+    "Template Method Pattern" : {
+
+    },
+    "Thank you for your business!" : {
+
+    },
+    "Undo" : {
+
+    },
     "unknownError" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -143,6 +266,18 @@
           }
         }
       }
+    },
+    "Unlock Something" : {
+
+    },
+    "User 1" : {
+
+    },
+    "User 2" : {
+
+    },
+    "Validation Error" : {
+
     }
   },
   "version" : "1.0"

@@ -43,4 +43,3 @@ final class User: NSCopying, Clonable {
         User(id: self.id, name: self.name, age: self.age)
     }
 }
-
