@@ -1652,6 +1652,573 @@ class XMLExportVisitor: ExportVisitor {
 
 ![alt text](image-18.png)
 
+## Structural
+
+### Adapter
+
+Adapter is a structural design pattern, which allows incompatible objects to collaborate.
+
+#### Pros
+
+1.  Single Responsibility Principle. You can separate the interface or data conversion code from the primary business logic of the program.
+2. Open/Closed Principle. You can introduce new types of adapters into the program without breaking the existing client code, as long as they work with the adapters through the client interface.
+
+#### Cons
+
+1. The overall complexity of the code increases because you need to introduce a set of new interfaces and classes. Sometimes it’s simpler just to change the service class so that it matches the rest of your code.
+
+#### Practical examples
+
+- Adapting old api, adapting a third party library, adapting storage layer
+
+```swift
+protocol AppPlayerType {
+    func play(url: URL)
+}
+
+final class LegacyImplementation {
+    func play(urlString: String) {
+        debugPrint("Playing video from URL: \(urlString)")
+    }
+}
+
+final class PlayerAdapter: AppPlayerType {
+    private let legacyPlayer = LegacyImplementation()
+
+    func play(url: URL) {
+        legacyPlayer.play(urlString: url.absoluteString)
+    }
+}
+```
+
+![alt text](image-19.png)
+
+### Bridge
+
+Bridge is a structural design pattern that lets you split a large class or a set of closely related classes into two separate hierarchies—abstraction and implementation—which can be developed independently of each other.
+
+#### Pros
+
+1. You can create platform-independent classes and apps.
+2. The client code works with high-level abstractions. It isn’t exposed to the platform details.
+3. Open/Closed Principle. You can introduce new abstractions and implementations independently from each other.
+4. Single Responsibility Principle. You can focus on high-level logic in the abstraction and on platform details in the implementation.
+
+#### Cons
+
+1. You might make the code more complicated by applying the pattern to a highly cohesive class.
+
+#### Practical examples
+
+The Bridge pattern is especially useful when dealing with cross-platform apps, supporting multiple types of database servers or working with several API providers of a certain kind (for example, cloud platforms, social networks, etc.)
+
+```swift
+import SwiftUI
+
+protocol Theme {
+    var backgroundColor: Color { get }
+    var foregroundColor: Color { get }
+}
+
+class LightTheme: Theme {
+    var backgroundColor: Color { .white }
+    var foregroundColor: Color { .black }
+}
+
+class DarkTheme: Theme {
+    var backgroundColor: Color { .black }
+    var foregroundColor: Color { .white }
+}
+
+protocol ThemedComponent {
+    var theme: Theme { get }
+    
+    func renderView() -> AnyView
+}
+
+class ThemedButton: ThemedComponent {
+    let theme: Theme
+    let title: String
+    
+    init(theme: Theme, title: String) {
+        self.theme = theme
+        self.title = title
+    }
+    
+    func renderView() -> AnyView {
+        AnyView(
+            Button(
+                action: {
+                    debugPrint("\(self.title) button pressed")
+                },
+                label: {
+                    Text(title)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(theme.backgroundColor)
+                        .foregroundColor(theme.foregroundColor)
+                        .cornerRadius(10)
+                }
+            )
+        )
+    }
+}
+
+class ThemedText: ThemedComponent {
+    let theme: Theme
+    let text: String
+
+    init(theme: Theme, text: String) {
+        self.theme = theme
+        self.text = text
+    }
+
+    func renderView() -> AnyView {
+        AnyView(
+            Text(text)
+                .padding()
+                .background(theme.backgroundColor)
+                .foregroundColor(theme.foregroundColor)
+                .cornerRadius(10)
+        )
+    }
+}
+```
+
+![alt text](image-20.png)
+
+### Composite
+
+Composite is a structural design pattern that lets you compose objects into tree structures and then work with these structures as if they were individual objects.
+
+#### Pros
+
+1. You can work with complex tree structures more conveniently: use polymorphism and recursion to your advantage.
+2. Open/Closed Principle. You can introduce new element types into the app without breaking the existing code, which now works with the object tree.
+
+#### Cons
+
+1.  It might be difficult to provide a common interface for classes whose functionality differs too much. In certain scenarios, you’d need to overgeneralize the component interface, making it harder to comprehend.
+
+#### Practical examples
+
+- Working on file system struture, that could contain files and folders
+- Other tree like structure
+
+```swift
+import SwiftUI
+
+// MARK: - Composite Pattern Implementation
+
+protocol ShapeComponent {
+    var id: UUID { get }
+    
+    func drawView(fillColor: Color) -> AnyView
+}
+
+// MARK: - Leafs (Circle and Square)
+
+final class Square: ShapeComponent {
+    let id = UUID()
+    
+    func drawView(fillColor: Color) -> AnyView {
+        AnyView(
+            Rectangle()
+                .fill(fillColor)
+                .frame(width: 100, height: 100)
+                .overlay(
+                    Text("Square")
+                        .foregroundColor(.white)
+                        .bold()
+                )
+        )
+    }
+}
+
+final class Circle: ShapeComponent {
+    let id = UUID()
+    
+    func drawView(fillColor: Color) -> AnyView {
+        AnyView(
+            Ellipse()
+                .fill(fillColor)
+                .frame(width: 100, height: 100)
+                .overlay(
+                    Text("Circle")
+                        .foregroundColor(.white)
+                        .bold()
+                )
+        )
+    }
+}
+
+// MARK: - Composite (Whiteboard)
+
+final class Whiteboard: ShapeComponent {
+    let id = UUID()
+    private var shapes: [ShapeComponent] = []
+    
+    init(_ shapes: ShapeComponent...) {
+        self.shapes = shapes
+    }
+    
+    func drawView(fillColor: Color) -> AnyView {
+        AnyView(
+            HStack(spacing: 20) {
+                ForEach(shapes, id: \.id) { shape in
+                    shape.drawView(fillColor: fillColor)
+                }
+            }
+        )
+    }
+}
+```
+
+![alt text](image-21.png)
+
+### Decorator
+
+Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.
+
+#### Pros
+
+1. You can extend an object’s behavior without making a new subclass.
+2. You can add or remove responsibilities from an object at runtime.
+3. You can combine several behaviors by wrapping an object into multiple decorators.
+4. Single Responsibility Principle. You can divide a monolithic class that implements many possible variants of behavior into several smaller classes.
+
+#### Cons
+
+1. It’s hard to remove a specific wrapper from the wrappers stack.
+2. It’s hard to implement a decorator in such a way that its behavior doesn’t depend on the order in the decorators stack.
+3. The initial configuration code of layers might look pretty ugly.
+
+#### Practical examples
+
+- Any stream data modificators
+- Decorating views to modify them or extend their behaviour
+
+```swift
+import SwiftUI
+
+// MARK: - Decorator Protocol
+protocol ViewDecorator {
+    func apply(to view: AnyView) -> AnyView
+}
+
+// MARK: - Concrete Decorators
+struct BorderDecorator: ViewDecorator {
+    let color: Color
+    let width: CGFloat
+
+    func apply(to view: AnyView) -> AnyView {
+        AnyView(
+            view
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(color, lineWidth: width)
+                )
+        )
+    }
+}
+
+struct ShadowDecorator: ViewDecorator {
+    let color: Color
+    let radius: CGFloat
+
+    func apply(to view: AnyView) -> AnyView {
+        AnyView(
+            view
+                .shadow(color: color, radius: radius)
+        )
+    }
+}
+
+struct PaddingDecorator: ViewDecorator {
+    let paddingValue: CGFloat
+
+    func apply(to view: AnyView) -> AnyView {
+        AnyView(
+            view
+                .padding(paddingValue)
+        )
+    }
+}
+
+// MARK: - Core View
+struct DecoratedTextView {
+    private let text: Text
+    private var decorators: [ViewDecorator] = []
+
+    init(_ text: String) {
+        self.text = Text(text)
+    }
+
+    mutating func addDecorator(_ decorator: ViewDecorator) {
+        decorators.append(decorator)
+    }
+
+    func build() -> AnyView {
+        var decoratedView: AnyView = AnyView(text.font(.title).foregroundColor(.white))
+        
+        for decorator in decorators {
+            decoratedView = decorator.apply(to: decoratedView)
+        }
+        
+        return decoratedView
+    }
+}
+```
+
+![alt text](image-22.png)
+
+### Facade
+
+Facade is a structural design pattern that provides a simplified interface to a library, a framework, or any other complex set of classes.
+
+#### Pros
+
+1.  You can isolate your code from the complexity of a subsystem.
+
+#### Cons
+
+1. A facade can become a god object coupled to all classes of an app.
+
+#### Practical examples
+
+Facade used to have one more level of the abstraction above the services, to handle how they should cooperate between one another, our repositories could be considered a facade pattern samples.
+
+```swift
+import Foundation
+
+// Subsystems
+class GoogleAnalytics {
+    func trackEvent(_ event: String) {
+        print("Google Analytics: Tracking event '\(event)'")
+    }
+}
+
+class FirebaseAnalytics {
+    func logEvent(_ event: String) {
+        print("Firebase: Logging event '\(event)'")
+    }
+}
+
+// Facade
+class AnalyticsFacade {
+    private let googleAnalytics = GoogleAnalytics()
+    private let firebaseAnalytics = FirebaseAnalytics()
+
+    func logEvent(_ event: String) {
+        googleAnalytics.trackEvent(event)
+        firebaseAnalytics.logEvent(event)
+    }
+}
+```
+
+![alt text](image-23.png)
+
+### Flyweight
+
+Flyweight is a structural design pattern that lets you fit more objects into the available amount of RAM by sharing common parts of state between multiple objects instead of keeping all of the data in each object.
+
+#### Pros
+
+1. You can save lots of RAM, assuming your program has tons of similar objects.
+
+#### Cons
+
+1. You might be trading RAM over CPU cycles when some of the context data needs to be recalculated each time somebody calls a flyweight method.
+2. The code becomes much more complicated. New team members will always be wondering why the state of an entity was separated in such a way.
+
+#### Practical examples
+
+The Flyweight pattern has a single purpose: minimizing memory intake. If your program doesn’t struggle with a shortage of RAM, then you might just ignore this pattern for a while
+
+```swift
+import SwiftUI
+
+class Icon {
+    let imageName: String
+    
+    init(imageName: String) {
+        self.imageName = imageName
+    }
+    
+    func displayIcon() -> Image {
+        Image(systemName: imageName)
+    }
+}
+
+class IconFactory {
+    private var icons: [String: Icon] = [:]
+
+    func getIcon(named imageName: String) -> Icon {
+        if let cachedIcon = icons[imageName] {
+            return cachedIcon
+        }
+        let newIcon = Icon(imageName: imageName)
+        icons[imageName] = newIcon
+        return newIcon
+    }
+}
+
+// SwiftUI View to Demonstrate Flyweight Pattern
+struct FlyweightView: View {
+    private let iconFactory = IconFactory()
+    private let iconNames = ["star.fill", "heart.fill", "bell.fill", "star.fill", "heart.fill"]
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Flyweight Pattern - Reuse Icons")
+                .font(.headline)
+
+            LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                ForEach(iconNames, id: \.self) { iconName in
+                    let icon = iconFactory.getIcon(named: iconName)
+                    icon.displayIcon()
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.blue)
+                }
+            }
+            .padding()
+        }
+        .padding()
+        .background(Color(.systemGray6))
+    }
+}
+```
+
+![alt text](image-24.png)
+
+### Proxy
+
+Proxy is a structural design pattern that provides an object that acts as a substitute for a real service object used by a client. A proxy receives client requests, does some work (access control, caching, etc.) and then passes the request to a service object.
+
+#### Pros
+
+1. You can control the service object without clients knowing about it.
+2. You can manage the lifecycle of the service object when clients don’t care about it.
+3. The proxy works even if the service object isn’t ready or is not available.
+4. Open/Closed Principle. You can introduce new proxies without changing the service or clients.
+
+#### Cons
+
+1. The code may become more complicated since you need to introduce a lot of new classes.
+2. The response from the service might get delayed.
+
+#### Practical examples
+
+While the Proxy pattern isn’t a frequent guest in most Swift applications, it’s still very handy in some special cases. It’s irreplaceable when you want to add some additional behaviors to an object of some existing class without changing the client code.
+
+- Could be used to add caching to existing networking system
+- Could be used to add loger to existing services
+- Security proxy could be used to check if user has permission to do some operation
+
+```swift
+
+import SwiftUI
+
+// MARK: - Enum for User Rights
+enum UserAccessRights {
+    case user
+    case admin
+}
+
+// MARK: - Resource Access Protocol
+protocol RestrictedResource {
+    func accessResource() -> String
+}
+
+// MARK: - Real Resource
+class RealResource: RestrictedResource {
+    func accessResource() -> String {
+        "Access Granted: Viewing Sensitive Data"
+    }
+}
+
+// MARK: - Security Proxy
+class SecurityProxy: RestrictedResource {
+    private let realResource = RealResource()
+    private let accessRights: UserAccessRights
+
+    init(accessRights: UserAccessRights) {
+        self.accessRights = accessRights
+    }
+
+    func accessResource() -> String {
+        switch accessRights {
+        case .admin:
+            return realResource.accessResource()
+
+        case .user:
+            return "Access Denied: You do not have the necessary permissions"
+        }
+    }
+}
+
+// MARK: - SwiftUI View
+struct ProxySampleView: View {
+    @State private var accessRights: UserAccessRights = .user
+    @State private var accessMessage: String = ""
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Security Proxy Sample")
+                .font(.title)
+                .padding()
+
+            // Display Current Access Rights
+            Text("Current Access: \(accessRights == .admin ? "Admin" : "User")")
+                .font(.headline)
+
+            // Toggle for Access Rights
+            Toggle(
+                "Switch to Admin Access",
+                isOn: Binding(
+                    get: { accessRights == .admin },
+                    set: { accessRights = $0 ? .admin : .user }
+                )
+            )
+            .padding()
+            .toggleStyle(SwitchToggleStyle(tint: .blue))
+
+            // Button to Access Resource
+            Button(
+                action: {
+                    let proxy = SecurityProxy(accessRights: accessRights)
+                    accessMessage = proxy.accessResource()
+                },
+                label: {
+                    Text("Access Restricted Resource")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            )
+            .padding()
+
+            // Display the Access Result
+            Text(accessMessage)
+                .font(.subheadline)
+                .foregroundColor(.gray)
+                .padding()
+
+            Spacer()
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
+        .shadow(radius: 5)
+    }
+}
+```
+
+![alt text](image-25.png)
 
 ## Resources
 
