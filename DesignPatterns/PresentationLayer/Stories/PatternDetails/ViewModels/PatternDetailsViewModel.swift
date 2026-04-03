@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import SFSafeSymbols
 
 extension DesignPatternCategory {
     var displayTitle: String {
@@ -44,27 +45,47 @@ extension DesignPatternModel {
 }
 
 final class PatternDetailsViewModel: PatternDetailsViewModelType {
-    
+
     // MARK: - Properties(public)
-    
+
     @Published var name: String
     @Published var categoryName: String
+    @Published var categoryColor: Color
+    @Published var categoryIcon: SFSymbol
     @Published var displayDescription: String
+    @Published var intent: String
+    @Published var applicability: String
+    @Published var structure: String
+    @Published var participants: [String]
+    @Published var collaboration: String?
+    @Published var implementation: String
+    @Published var knownUses: [String]
+    @Published var relatedPatterns: [String]
     @Published var message: AppMessageDisplayModel?
-    
+
     // MARK: - Properties(private)
-    
+
     @StateObject private var router: Router<RootRoute>
-    
+
     private let rawData: DesignPatternModel
-    
+
     // MARK: - Life cycle
-    
+
     init(rawData: DesignPatternModel, router: Router<RootRoute>) {
         self.rawData = rawData
         self.name = rawData.name
         self.categoryName = rawData.category.displayTitle
+        self.categoryColor = rawData.category.displayColor
+        self.categoryIcon = rawData.category.icon
         self.displayDescription = rawData.detailsDescription
+        self.intent = rawData.intent
+        self.applicability = rawData.applicability
+        self.structure = rawData.structure
+        self.participants = rawData.participants
+        self.collaboration = rawData.collaboration
+        self.implementation = rawData.implementation
+        self.knownUses = rawData.knownUses
+        self.relatedPatterns = rawData.relatedPatterns
         self._router = StateObject(wrappedValue: router)
     }
 }

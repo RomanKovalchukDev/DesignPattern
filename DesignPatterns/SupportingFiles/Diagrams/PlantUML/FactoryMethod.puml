@@ -1,0 +1,37 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Creator {
+    + factoryMethod(): Product
+    + someOperation()
+}
+
+class ConcreteCreatorA {
+    + factoryMethod(): Product
+}
+
+class ConcreteCreatorB {
+    + factoryMethod(): Product
+}
+
+interface Product {
+    + operation()
+}
+
+class ConcreteProductA {
+    + operation()
+}
+
+class ConcreteProductB {
+    + operation()
+}
+
+Creator <|.. ConcreteCreatorA
+Creator <|.. ConcreteCreatorB
+Product <|.. ConcreteProductA
+Product <|.. ConcreteProductB
+ConcreteCreatorA ..> ConcreteProductA : <<creates>>
+ConcreteCreatorB ..> ConcreteProductB : <<creates>>
+@enduml

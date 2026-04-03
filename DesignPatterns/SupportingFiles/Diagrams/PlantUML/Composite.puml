@@ -1,0 +1,31 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Component {
+    + operation()
+    + add(Component)
+    + remove(Component)
+    + getChild(int): Component
+}
+
+class Leaf {
+    + operation()
+}
+
+class Composite {
+    - children: List<Component>
+    + operation()
+    + add(Component)
+    + remove(Component)
+    + getChild(int): Component
+}
+
+class Client
+
+Component <|.. Leaf
+Component <|.. Composite
+Composite o--> Component
+Client --> Component
+@enduml

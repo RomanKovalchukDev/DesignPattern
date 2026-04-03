@@ -1,0 +1,18 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+class Singleton {
+    - {static} instance: Singleton?
+    - Singleton()
+    + {static} shared: Singleton
+    + someMethod()
+}
+
+note right of Singleton
+  Private initializer ensures
+  only one instance exists.
+  Access via Singleton.shared
+end note
+@enduml

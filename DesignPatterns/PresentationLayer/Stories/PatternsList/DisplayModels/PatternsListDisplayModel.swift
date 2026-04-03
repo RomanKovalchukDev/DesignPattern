@@ -6,18 +6,32 @@
 //
 
 import Foundation
+import SwiftUI
+import SFSafeSymbols
 
 struct PatternsListDisplayModel: Identifiable {
     let id: String = UUID().uuidString
-    
+
     var title: String {
         rawData.name
     }
-    
+
+    var shortDescription: String {
+        rawData.shortDescription
+    }
+
     var category: PatternsListCategoryDisplayModel {
         PatternsListCategoryDisplayModel(model: rawData.category)
     }
-    
+
+    var categoryColor: Color {
+        rawData.category.displayColor
+    }
+
+    var icon: SFSymbol {
+        rawData.icon
+    }
+
     var rawData: DesignPatternModel
 }
 

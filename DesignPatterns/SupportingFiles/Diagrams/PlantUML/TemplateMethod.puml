@@ -1,0 +1,33 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+abstract class AbstractClass {
+    + templateMethod()
+    # primitiveOperation1()
+    # primitiveOperation2()
+    # hook()
+}
+
+class ConcreteClass1 {
+    # primitiveOperation1()
+    # primitiveOperation2()
+}
+
+class ConcreteClass2 {
+    # primitiveOperation1()
+    # primitiveOperation2()
+    # hook()
+}
+
+AbstractClass <|-- ConcreteClass1
+AbstractClass <|-- ConcreteClass2
+
+note right of AbstractClass::templateMethod
+  templateMethod() defines the skeleton:
+  1. primitiveOperation1()
+  2. primitiveOperation2()
+  3. hook()
+end note
+@enduml

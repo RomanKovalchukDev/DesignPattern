@@ -61,31 +61,44 @@ struct PatternsListView<ViewModel: PatternsListViewModelType>: View {
     @ViewBuilder
     private func createSectionHeaderView(for section: PatternsListSectionDisplayModel) -> some View {
         HStack {
+            Image(systemSymbol: section.category.rawData.icon)
+                .font(.system(size: 20))
+                .foregroundStyle(section.category.rawData.displayColor)
+
             Text(section.category.displayTitle)
+                .font(.headline)
+                .foregroundStyle(section.category.rawData.displayColor)
+
             Spacer()
+
             Image(
-                systemSymbol: section.isExpanded ? SFSymbol.arrowUp : SFSymbol.arrowDown
+                systemSymbol: section.isExpanded ? SFSymbol.chevronUp : SFSymbol.chevronDown
             )
-            .tint(Color(.midnightGreen))
+            .font(.system(size: 14, weight: .semibold))
+            .foregroundStyle(section.category.rawData.displayColor)
         }
+        .padding(.vertical, 12)
+        .padding(.horizontal, 16)
         .frame(minWidth: 50)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(section.category.rawData.displayColor.opacity(0.1))
+        )
         .onTapGesture {
             viewModel.toggleSectionVisibility(for: section)
         }
-        .listRowInsets(EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero))
+        .listRowInsets(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
     }
     
     @ViewBuilder
     private func createPatternView(for pattern: PatternsListDisplayModel) -> some View {
-        Text(pattern.title)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, 10)
-            .padding(.trailing, 10)
+        PatternCardView(pattern: pattern)
             .onTapGesture {
                 viewModel.patternSelected(pattern)
             }
             .listRowSeparator(.hidden)
-            .listRowInsets(EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero))
+            .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
+            .listRowBackground(Color.clear)
     }
 }
 

@@ -1,0 +1,32 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+class Context {
+    - strategy: Strategy
+    + setStrategy(Strategy)
+    + executeStrategy()
+}
+
+interface Strategy {
+    + execute()
+}
+
+class ConcreteStrategyA {
+    + execute()
+}
+
+class ConcreteStrategyB {
+    + execute()
+}
+
+class ConcreteStrategyC {
+    + execute()
+}
+
+Context o--> Strategy
+Strategy <|.. ConcreteStrategyA
+Strategy <|.. ConcreteStrategyB
+Strategy <|.. ConcreteStrategyC
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+class FlyweightFactory {
+    - flyweights: Map<String, Flyweight>
+    + getFlyweight(key: String): Flyweight
+}
+
+interface Flyweight {
+    + operation(extrinsicState)
+}
+
+class ConcreteFlyweight {
+    - intrinsicState
+    + operation(extrinsicState)
+}
+
+class UnsharedFlyweight {
+    - allState
+    + operation(extrinsicState)
+}
+
+class Client {
+    - extrinsicState
+}
+
+FlyweightFactory o--> Flyweight
+Flyweight <|.. ConcreteFlyweight
+Flyweight <|.. UnsharedFlyweight
+Client --> FlyweightFactory
+Client --> Flyweight
+@enduml

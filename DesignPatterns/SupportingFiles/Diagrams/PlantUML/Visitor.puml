@@ -1,0 +1,41 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Visitor {
+    + visitConcreteElementA(ConcreteElementA)
+    + visitConcreteElementB(ConcreteElementB)
+}
+
+class ConcreteVisitor1 {
+    + visitConcreteElementA(ConcreteElementA)
+    + visitConcreteElementB(ConcreteElementB)
+}
+
+class ConcreteVisitor2 {
+    + visitConcreteElementA(ConcreteElementA)
+    + visitConcreteElementB(ConcreteElementB)
+}
+
+interface Element {
+    + accept(Visitor)
+}
+
+class ConcreteElementA {
+    + accept(Visitor)
+    + operationA()
+}
+
+class ConcreteElementB {
+    + accept(Visitor)
+    + operationB()
+}
+
+Visitor <|.. ConcreteVisitor1
+Visitor <|.. ConcreteVisitor2
+Element <|.. ConcreteElementA
+Element <|.. ConcreteElementB
+ConcreteElementA ..> Visitor
+ConcreteElementB ..> Visitor
+@enduml

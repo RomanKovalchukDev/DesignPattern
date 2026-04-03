@@ -1,0 +1,31 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+abstract class Abstraction {
+    # implementor: Implementor
+    + operation()
+}
+
+class RefinedAbstraction {
+    + operation()
+}
+
+interface Implementor {
+    + operationImpl()
+}
+
+class ConcreteImplementorA {
+    + operationImpl()
+}
+
+class ConcreteImplementorB {
+    + operationImpl()
+}
+
+Abstraction <|-- RefinedAbstraction
+Abstraction o--> Implementor
+Implementor <|.. ConcreteImplementorA
+Implementor <|.. ConcreteImplementorB
+@enduml

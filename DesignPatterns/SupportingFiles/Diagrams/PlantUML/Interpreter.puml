@@ -1,0 +1,33 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+class Context {
+    - variables: Map<String, Value>
+    + lookup(name: String): Value
+    + assign(name: String, value: Value)
+}
+
+interface Expression {
+    + interpret(context: Context): Value
+}
+
+class TerminalExpression {
+    + interpret(context: Context): Value
+}
+
+class NonterminalExpression {
+    - expressions: List<Expression>
+    + interpret(context: Context): Value
+}
+
+class Client
+
+Context <-- Expression
+Expression <|.. TerminalExpression
+Expression <|.. NonterminalExpression
+NonterminalExpression o--> Expression
+Client --> Context
+Client --> Expression
+@enduml

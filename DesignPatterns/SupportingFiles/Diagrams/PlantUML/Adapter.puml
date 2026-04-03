@@ -1,0 +1,24 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Target {
+    + request()
+}
+
+class Adapter {
+    - adaptee: Adaptee
+    + request()
+}
+
+class Adaptee {
+    + specificRequest()
+}
+
+class Client
+
+Target <|.. Adapter
+Adapter o--> Adaptee
+Client --> Target
+@enduml

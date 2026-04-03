@@ -1,0 +1,31 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Iterator {
+    + hasNext(): boolean
+    + next(): Object
+}
+
+class ConcreteIterator {
+    - aggregate: ConcreteAggregate
+    - currentIndex: int
+    + hasNext(): boolean
+    + next(): Object
+}
+
+interface Aggregate {
+    + createIterator(): Iterator
+}
+
+class ConcreteAggregate {
+    - items: List
+    + createIterator(): Iterator
+}
+
+Iterator <|.. ConcreteIterator
+Aggregate <|.. ConcreteAggregate
+ConcreteIterator --> ConcreteAggregate
+ConcreteAggregate ..> ConcreteIterator : <<creates>>
+@enduml

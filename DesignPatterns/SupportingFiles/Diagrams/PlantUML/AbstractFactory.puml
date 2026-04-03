@@ -1,0 +1,39 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface AbstractFactory {
+    + createProductA(): ProductA
+    + createProductB(): ProductB
+}
+
+class ConcreteFactory1 {
+    + createProductA(): ProductA
+    + createProductB(): ProductB
+}
+
+class ConcreteFactory2 {
+    + createProductA(): ProductA
+    + createProductB(): ProductB
+}
+
+interface ProductA
+interface ProductB
+
+class ProductA1
+class ProductA2
+class ProductB1
+class ProductB2
+
+AbstractFactory <|.. ConcreteFactory1
+AbstractFactory <|.. ConcreteFactory2
+ProductA <|.. ProductA1
+ProductA <|.. ProductA2
+ProductB <|.. ProductB1
+ProductB <|.. ProductB2
+ConcreteFactory1 ..> ProductA1 : <<creates>>
+ConcreteFactory1 ..> ProductB1 : <<creates>>
+ConcreteFactory2 ..> ProductA2 : <<creates>>
+ConcreteFactory2 ..> ProductB2 : <<creates>>
+@enduml

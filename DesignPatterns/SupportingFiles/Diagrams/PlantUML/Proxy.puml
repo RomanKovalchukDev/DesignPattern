@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Subject {
+    + request()
+}
+
+class RealSubject {
+    + request()
+}
+
+class Proxy {
+    - realSubject: RealSubject
+    + request()
+}
+
+class Client
+
+Subject <|.. RealSubject
+Subject <|.. Proxy
+Proxy o--> RealSubject
+Client --> Subject
+@enduml

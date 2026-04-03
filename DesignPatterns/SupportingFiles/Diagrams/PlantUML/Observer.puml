@@ -1,0 +1,36 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Subject {
+    + attach(Observer)
+    + detach(Observer)
+    + notify()
+}
+
+class ConcreteSubject {
+    - state
+    - observers: List<Observer>
+    + attach(Observer)
+    + detach(Observer)
+    + notify()
+    + getState()
+    + setState()
+}
+
+interface Observer {
+    + update()
+}
+
+class ConcreteObserver {
+    - observerState
+    - subject: ConcreteSubject
+    + update()
+}
+
+Subject <|.. ConcreteSubject
+Observer <|.. ConcreteObserver
+ConcreteSubject o--> Observer
+ConcreteObserver --> ConcreteSubject
+@enduml

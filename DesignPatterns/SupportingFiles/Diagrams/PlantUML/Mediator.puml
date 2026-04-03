@@ -1,0 +1,35 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Mediator {
+    + notify(sender: Colleague, event)
+}
+
+class ConcreteMediator {
+    - colleague1: Colleague1
+    - colleague2: Colleague2
+    + notify(sender: Colleague, event)
+}
+
+abstract class Colleague {
+    # mediator: Mediator
+    + setMediator(Mediator)
+}
+
+class Colleague1 {
+    + operation1()
+}
+
+class Colleague2 {
+    + operation2()
+}
+
+Mediator <|.. ConcreteMediator
+Colleague <|-- Colleague1
+Colleague <|-- Colleague2
+Colleague o--> Mediator
+ConcreteMediator o--> Colleague1
+ConcreteMediator o--> Colleague2
+@enduml

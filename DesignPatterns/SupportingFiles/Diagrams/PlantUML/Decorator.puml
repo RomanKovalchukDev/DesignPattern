@@ -1,0 +1,34 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Component {
+    + operation()
+}
+
+class ConcreteComponent {
+    + operation()
+}
+
+abstract class Decorator {
+    # component: Component
+    + operation()
+}
+
+class ConcreteDecoratorA {
+    - addedState
+    + operation()
+}
+
+class ConcreteDecoratorB {
+    + addedBehavior()
+    + operation()
+}
+
+Component <|.. ConcreteComponent
+Component <|.. Decorator
+Decorator o--> Component
+Decorator <|-- ConcreteDecoratorA
+Decorator <|-- ConcreteDecoratorB
+@enduml

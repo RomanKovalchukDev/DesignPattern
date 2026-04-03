@@ -15,9 +15,7 @@ struct DesignPatternsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RoutingView(RootRoute.self) { router in
-                router.view(for: .patternList)
-            }
+            MainTabView()
         }
     }
     

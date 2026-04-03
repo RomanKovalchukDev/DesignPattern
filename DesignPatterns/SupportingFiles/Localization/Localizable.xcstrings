@@ -1,10 +1,31 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "@RomanKovalchukDev" : {
+
+    },
+    "%lld" : {
+
+    },
     "📄 Invoice" : {
 
     },
     "📊 Report" : {
+
+    },
+    "23 Gang of Four patterns organized by category. Tap any pattern for detailed information." : {
+
+    },
+    "A comprehensive guide to 23 Gang of Four design patterns with real-world Swift examples." : {
+
+    },
+    "About" : {
+
+    },
+    "About the Diagram" : {
+
+    },
+    "Access Restricted Resource" : {
 
     },
     "Add to Favorites" : {
@@ -23,6 +44,12 @@
           }
         }
       }
+    },
+    "Authentication Result" : {
+
+    },
+    "Based on Design Patterns: Elements of Reusable Object-Oriented Software" : {
+
     },
     "behavioralPaternCategory" : {
       "extractionState" : "manual",
@@ -44,6 +71,18 @@
     "Chat Room" : {
 
     },
+    "Cheat Sheet" : {
+
+    },
+    "Choose Authentication Flow" : {
+
+    },
+    "Circle" : {
+
+    },
+    "Code samples coming soon" : {
+
+    },
     "creationalPaternCategory" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -54,6 +93,9 @@
           }
         }
       }
+    },
+    "Current Access: %@" : {
+
     },
     "Current Text: %@" : {
 
@@ -69,13 +111,28 @@
         }
       }
     },
+    "Design Patterns" : {
+
+    },
     "Details" : {
 
     },
     "Dev" : {
 
     },
+    "Developer" : {
+
+    },
+    "Diagram image not found: %@.png" : {
+
+    },
+    "Diagram Not Available" : {
+
+    },
     "Edit Post" : {
+
+    },
+    "Enable Dark Mode" : {
 
     },
     "Enter text" : {
@@ -96,19 +153,43 @@
     "Face Enemy" : {
 
     },
+    "Features" : {
+
+    },
+    "Flyweight Pattern - Reuse Icons" : {
+
+    },
     "Generated on: 01-Feb-2025" : {
 
     },
     "Gold: %lld" : {
 
     },
+    "Hide Code" : {
+
+    },
     "Idle" : {
+
+    },
+    "Implementation examples for this pattern are being prepared." : {
+
+    },
+    "Known Uses in iOS" : {
+
+    },
+    "Learning Reference" : {
+
+    },
+    "Legacy Auth (Adapted)" : {
 
     },
     "Loading..." : {
 
     },
     "Media Player" : {
+
+    },
+    "Modern Auth" : {
 
     },
     "Name" : {
@@ -135,6 +216,15 @@
           }
         }
       }
+    },
+    "OK" : {
+
+    },
+    "Participants" : {
+
+    },
+    "Pattern Categories" : {
+
     },
     "patternDetailsCattegory" : {
       "extractionState" : "manual",
@@ -174,6 +264,9 @@
     "Paused" : {
 
     },
+    "PlantUML Source" : {
+
+    },
     "Play" : {
 
     },
@@ -195,13 +288,28 @@
     "Product extended view" : {
 
     },
+    "Quick Reference" : {
+
+    },
+    "Quick Reference Guide" : {
+
+    },
     "Redo" : {
+
+    },
+    "Redraw Shapes" : {
+
+    },
+    "Related Patterns" : {
 
     },
     "Remove from Favorites" : {
 
     },
     "Report Content: Sales increased by 20% this quarter." : {
+
+    },
+    "Roman Kovalchuk" : {
 
     },
     "rootScreenTitle" : {
@@ -218,13 +326,25 @@
     "Save state" : {
 
     },
+    "Section" : {
+
+    },
+    "Security Proxy Sample" : {
+
+    },
     "Select Image" : {
 
     },
     "Send" : {
 
     },
+    "Show Code" : {
+
+    },
     "Show Favorites Only" : {
+
+    },
+    "Square" : {
 
     },
     "Stop" : {
@@ -241,6 +361,12 @@
         }
       }
     },
+    "Structure visualization for %@" : {
+
+    },
+    "Switch to Admin Access" : {
+
+    },
     "Switch to ipad" : {
 
     },
@@ -251,6 +377,18 @@
 
     },
     "Thank you for your business!" : {
+
+    },
+    "The UML class diagram shows the structural relationships between classes, interfaces, and their interactions in the %@ pattern." : {
+
+    },
+    "UML Class Diagram" : {
+
+    },
+    "UML Diagram" : {
+
+    },
+    "UML diagram for %@ is being prepared" : {
 
     },
     "Undo" : {
@@ -277,6 +415,9 @@
 
     },
     "Validation Error" : {
+
+    },
+    "Version 2.0" : {
 
     }
   },

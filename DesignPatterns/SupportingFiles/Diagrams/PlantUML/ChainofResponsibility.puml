@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+abstract class Handler {
+    # successor: Handler
+    + handleRequest(request)
+}
+
+class ConcreteHandler1 {
+    + handleRequest(request)
+}
+
+class ConcreteHandler2 {
+    + handleRequest(request)
+}
+
+class Client
+
+Handler <|-- ConcreteHandler1
+Handler <|-- ConcreteHandler2
+Handler o--> Handler : successor
+Client --> Handler
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+class Originator {
+    - state
+    + setState(state)
+    + createMemento(): Memento
+    + restore(memento: Memento)
+}
+
+class Memento {
+    - state
+    + getState()
+}
+
+class Caretaker {
+    - memento: Memento
+    + saveState(Originator)
+    + restoreState(Originator)
+}
+
+Originator ..> Memento : <<creates>>
+Caretaker o--> Memento
+Caretaker --> Originator
+@enduml

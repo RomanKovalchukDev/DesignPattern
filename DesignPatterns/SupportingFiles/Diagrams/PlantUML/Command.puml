@@ -1,0 +1,33 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+class Invoker {
+    - command: Command
+    + setCommand(Command)
+    + executeCommand()
+}
+
+interface Command {
+    + execute()
+}
+
+class ConcreteCommand {
+    - receiver: Receiver
+    - state
+    + execute()
+}
+
+class Receiver {
+    + action()
+}
+
+class Client
+
+Invoker o--> Command
+Command <|.. ConcreteCommand
+ConcreteCommand o--> Receiver
+Client ..> Receiver
+Client ..> ConcreteCommand
+@enduml

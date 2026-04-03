@@ -1,0 +1,35 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+class Director {
+    - builder: Builder
+    + construct()
+}
+
+interface Builder {
+    + buildPartA()
+    + buildPartB()
+    + buildPartC()
+    + getResult(): Product
+}
+
+class ConcreteBuilder {
+    - product: Product
+    + buildPartA()
+    + buildPartB()
+    + buildPartC()
+    + getResult(): Product
+}
+
+class Product {
+    - partA
+    - partB
+    - partC
+}
+
+Director o--> Builder
+Builder <|.. ConcreteBuilder
+ConcreteBuilder ..> Product : <<builds>>
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface Prototype {
+    + clone(): Prototype
+}
+
+class ConcretePrototype1 {
+    - field1
+    - field2
+    + clone(): Prototype
+}
+
+class ConcretePrototype2 {
+    - field3
+    - field4
+    + clone(): Prototype
+}
+
+class Client {
+    - prototype: Prototype
+    + operation()
+}
+
+Prototype <|.. ConcretePrototype1
+Prototype <|.. ConcretePrototype2
+Client o--> Prototype
+@enduml
