@@ -96,5 +96,6 @@ iOSInjectionProject/
 
 # Ignore temporary files
 *.tmp
-Hubmee/.bundle/config
-Hubmee/fastlane/.env
+
+# Claude
+.claude/settings.local.json
